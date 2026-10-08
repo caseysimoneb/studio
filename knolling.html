@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Knolling</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&display=swap"><style>
+:root { color-scheme: light; --ink:#000; --paper:#fff; --soft:#8A8A8A; --hair:#D8D8D8; --s:13px; --l:24px; }
+* { margin:0; padding:0; box-sizing:border-box; }
+html { background: var(--paper); -webkit-text-size-adjust: 100%; }
+body { color: var(--ink); font-family: Cardo, Georgia, serif; font-size: 15.5px; line-height: 21px; padding: var(--s); }
+a { color: inherit; }
+b, strong { font-weight: 700; }
+header { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 13.25px; padding-bottom: var(--l); border-bottom: 1px solid var(--ink); display:flex; justify-content:space-between; align-items:baseline; }
+header a, header b { text-decoration:none; font-weight:700; }
+.draft { color: var(--soft); }
+main { display:grid; grid-template-columns: 340px 1fr; column-gap: 80px; padding-top: var(--l); }
+.text p, .text ul, .text ol { max-width: 340px; margin-bottom: var(--l); }
+.text ul { padding-left: var(--s); }
+.list { margin-top: var(--l); }
+.list a { display:block; text-decoration:none; margin-bottom: var(--l); max-width: 340px; }
+.list a b { display:block; }
+.list a:hover b { text-decoration: underline; text-underline-offset: 3px; }
+.facts { margin-bottom: var(--l); max-width: 340px; }
+.facts div { display:grid; grid-template-columns: 80px 1fr; padding: 3px 0; border-top: 1px solid var(--hair); }
+.facts div:last-child { border-bottom: 1px solid var(--hair); }
+.facts dt { color: var(--soft); }
+figure { align-self:start; justify-self:end; width:100%; max-width: 620px; margin-bottom: var(--l); }
+figure img { display:block; width:100%; height:auto; outline: 1px solid var(--hair); }
+.plate { max-width: 560px; }
+.plate img { outline:none; }
+figcaption { color: var(--soft); margin-top: 6px; }
+abbr { text-decoration: underline dotted var(--soft); text-underline-offset: 3px; cursor: help; position: relative; }
+abbr::after { content: attr(data-gloss); position:absolute; left:0; top:1.6em; width:280px; padding:10px 12px; background: var(--paper); border:1px solid #2120DE; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size:13px; line-height:1.4; opacity:0; pointer-events:none; transition: opacity .15s; z-index:2; }
+abbr:hover::after, abbr:focus::after { opacity:1; }
+.refs { display:grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: var(--l) var(--l); margin-bottom: var(--l); max-width: 620px; justify-self:end; width:100%; }
+.ref img { display:block; width:100%; aspect-ratio: 4/3; object-fit: cover; margin-bottom: 6px; }
+.ref b { display:block; }
+.ref a { text-decoration:none; }
+.ref .note { display:block; color: var(--soft); }
+.soontag { font: 400 11px "Helvetica Neue", Helvetica, Arial, sans-serif; color: var(--soft); margin-left: 8px; letter-spacing: .02em; }
+header nav.elsewhere { display:flex; gap: 16px; margin-left:auto; }
+header nav.elsewhere a { font-weight:400; text-decoration:none; }
+header nav.elsewhere a:hover { color:#2120DE; }
+header .draft:not(:empty) { margin-left: 24px; }
+.cite { display:block; font-size: 13px; line-height: 18px; color: var(--soft); margin-top: 4px; }
+.cite a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+.docwrap { grid-column: 1 / -1; margin-top: calc(var(--l) * 2); padding-top: var(--l); border-top: 1px solid var(--hair); }
+.stetwin { max-width: 860px; border: 1px solid #C8C8C8; border-radius: 10px; overflow: hidden; box-shadow: 0 18px 50px rgba(0,0,0,.10); background:#fff; }
+.stetwin .bar { display:flex; align-items:center; gap: 14px; height: 38px; padding: 0 14px; border-bottom: 1px solid #E4E4E4; background: #FAFAFA; font: 12px "Helvetica Neue", Helvetica, Arial, sans-serif; color:#555; }
+.stetwin .lights { display:flex; gap: 7px; }
+.stetwin .lights i { width: 11px; height: 11px; border-radius: 50%; background:#DCDCDC; display:block; }
+.stetwin .tab { font: inherit; background:none; border:0; padding: 0 2px; color:#8A8A8A; cursor:pointer; height: 100%; border-bottom: 2px solid transparent; }
+.stetwin .tab:hover { color:#2120DE; }
+.stetwin .tab.on { font-weight: 700; color:#000; border-bottom-color:#000; }
+.stetwin .sheet[hidden] { display:none; }
+.stetwin a.stetbar { display:flex; justify-content:space-between; align-items:center; height: 40px; padding: 0 16px; border-top: 1px solid #E4E4E4; background:#FAFAFA; font: 12px "Helvetica Neue", Helvetica, Arial, sans-serif; color:#555; text-decoration:none; }
+.stetwin a.stetbar b { color:#000; }
+.stetwin a.stetbar:hover, .stetwin a.stetbar:hover b { color:#2120DE; }
+.stetwin .app { margin-left:auto; color:#8A8A8A; }
+.stetwin .sheet { height: 520px; overflow-y: auto; padding: 36px 56px 56px; font: 15px/1.55 "Helvetica Neue", Helvetica, Arial, sans-serif; color:#111;
+  background-image: radial-gradient(rgba(0,0,0,.12) 1px, transparent 1.2px); background-size: 22px 22px; }
+.stetwin .sheet p { margin: 0 0 14px; max-width: 680px; }
+.stetwin .sheet h3 { font-size: 15px; margin: 0 0 14px; }
+.stetwin .sheet h2 { font-size: 20px; margin: 0 0 18px; } .stetwin .sheet h4 { font-size: 15px; margin: 22px 0 10px; }
+.stetwin .sheet ul, .stetwin .sheet ol { margin: 0 0 14px 22px; max-width: 680px; } .stetwin .sheet li { margin-bottom: 4px; }
+.stetwin .sheet table { border-collapse: collapse; margin: 6px 0 18px; } .stetwin .sheet td { border: 1px solid #D8D8D8; padding: 6px 14px; }
+.stetwin .sheet hr { border:0; border-top: 1px dashed #BDBDBD; margin: 22px 0; }
+.doccap { color: var(--soft); margin-top: 10px; max-width: 860px; }
+main.secs { display:block; padding-top:0; }
+main.airy .sec { padding: 56px 0 80px; column-gap: 96px; }
+main.airy .sec:first-child { padding-top: 32px; }
+main.airy .sidegrid { gap: 32px; }
+.rows { margin: 72px 0 0 calc(340px + 80px); border-top: 1px solid #E4E4E4; }
+main.airy .rows { margin-left: calc(340px + 96px); }
+details.row > summary { list-style:none; cursor:pointer; display:grid; grid-template-columns: 44px 230px 1fr 20px; gap: 20px; align-items: baseline; padding: 18px 0; border-bottom: 1px solid #E4E4E4; }
+details.row > summary::-webkit-details-marker { display:none; }
+details.row > summary .n { font: 13.25px "Helvetica Neue", Helvetica, Arial, sans-serif; color: var(--soft); }
+details.row > summary .h { font-size: inherit; } details.row > summary .t { color: var(--soft); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+details.row > summary .pm { font: 15px "Helvetica Neue", Helvetica, Arial, sans-serif; color: var(--soft); }
+details.row[open] > summary .pm::before { content: "3"; } details.row:not([open]) > summary .pm::before { content: "+"; }
+details.row > summary:hover .h { color:#2120DE; }
+details.row > .sec { border-bottom: 1px solid #E4E4E4; padding: 32px 0 64px; grid-template-columns: 300px minmax(0, 1fr); column-gap: 48px; }
+details.row > .sec .words p { max-width: 300px; }
+details.row > .sec h2 { display:none; }
+main.airy .rows ~ * .sec:first-child, main.airy > .sec:first-child { border-bottom: 0; }
+@media (max-width: 1100px) { .rows, main.airy .rows { margin-left: 0; } details.row > .sec { grid-template-columns: 1fr; } }
+@media (max-width: 760px) { details.row > summary { grid-template-columns: 28px 1fr 20px; } details.row > summary .t { display:none; } }
+.sec { display:grid; grid-template-columns: 340px 1fr; column-gap: 80px; padding: var(--l) 0 32px; border-bottom: 1px solid #E4E4E4; }
+.sec:last-child { border-bottom:0; }
+.sec .words p, .sec .words ul, .sec .words ol { max-width: 340px; margin-bottom: var(--l); }
+ol { padding-left: 1.3em; }
+.sec .words .pics { margin-bottom: var(--l); }
+.sec h2 { font: 700 13.25px/18.55px "Helvetica Neue", Helvetica, Arial, sans-serif; margin-bottom: 16px; }
+.sec h2 .n { color: var(--soft); font-weight:400; margin-right: 10px; }
+.sec figure { justify-self:auto; max-width:none; margin-bottom:0; }
+.sec figure img { outline:none; }
+.sec figcaption, p.doccap { font: 12px/16px "Helvetica Neue", Helvetica, Arial, sans-serif; color:#555; }
+.duo { display:grid; grid-template-columns: 1fr 1fr; gap: var(--l); align-self:start; max-width: 760px; }
+.duo:has(> figure:only-child) { grid-template-columns: 1fr; max-width: 372px; }
+.duo figure:only-child img { aspect-ratio: auto; }
+.duo:has(> figure:nth-child(2):last-child) { grid-template-columns: 1.85fr 1fr; column-gap: 48px; max-width: 760px; }
+.duo figure:nth-child(2) { margin-top: 56px; }
+.duo img { width:100%; aspect-ratio: 3/4; object-fit: cover; }
+.duo figure:last-child img { aspect-ratio: auto; }
+details.pre { border-top: 1px solid #E4E4E4; padding-top: 8px; margin-top: 8px; }
+details.pre summary { list-style:none; cursor:pointer; display:flex; gap: 16px; align-items: baseline; }
+details.pre summary::-webkit-details-marker { display:none; }
+details.pre summary::after { content: "+"; margin-left:auto; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; color: var(--soft); }
+details.pre[open] summary::after { content: "3"; }
+details.pre summary:hover .nm { color:#2120DE; }
+details.pre .yr { font: 13.25px "Helvetica Neue", Helvetica, Arial, sans-serif; color: var(--soft); min-width: 44px; }
+details.pre .body { padding: 8px 0 16px 60px; }
+details.pre .body p { margin-bottom: 8px; max-width: 560px; }
+details.pre .lab { font-style: italic; }
+details.pre .pics { display:flex; gap: 16px; margin: 8px 0; }
+details.pre figure { width: 260px; }
+.tree { font: 12.5px/22px "SF Mono", Menlo, monospace; color:#222; overflow-x:auto; }
+.tree .t { display:flex; align-items:flex-start; }
+.tree .n { white-space:nowrap; }
+.tree .n .d { color: var(--soft); margin-left: 6px; }
+.tree .k > .n { padding-right: 10px; }
+.tree ul { list-style:none; position:relative; margin:0 0 0 0; padding:0; }
+.tree .k > ul { margin-left: 22px; }
+.tree .k > ul::before { content:""; position:absolute; left:-22px; top:11px; width:22px; border-top:1px solid #222; }
+.tree li { position:relative; padding-left: 16px; }
+.tree li::before { content:""; position:absolute; left:0; top:11px; width:10px; border-top:1px solid #222; }
+.tree li::after { content:""; position:absolute; left:0; top:0; bottom:0; border-left:1px solid #222; }
+.tree li:first-child::after { top:11px; }
+.tree li:last-child::after { bottom:auto; height:11px; }
+.tree li:only-child::after { display:none; }
+.sec pre { font: 12px/18px "SF Mono", Menlo, monospace; background:#F5F5F3; padding: 12px 14px; max-width: 340px; margin-bottom: var(--l); white-space: pre-wrap; overflow-wrap: anywhere; }
+.sec code { font: 12.5px "SF Mono", Menlo, monospace; }
+.sec figure.side { max-width: 372px; }
+.sidegrid figure.side { max-width: none; }
+.sidegrid { display:grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: var(--l); align-items:start; max-width: 820px; }
+.sidegrid figure.side img { width:100%; height:auto; }
+.wopen { align-self:start; } .wcap { font: 12px/16px "Helvetica Neue", Helvetica, Arial, sans-serif; color:#555; margin-top: 8px; max-width: 860px; }
+.sec .docwrap { margin-top:0; padding-top:0; border-top:0; }
+a.card { display:grid; grid-template-columns: 96px 1fr; gap: 14px; align-items:center; max-width: 340px; margin-bottom: var(--l); padding: 10px; border: 1px solid var(--hair); border-radius: 8px; text-decoration:none; background:#FAFAFA; }
+a.card img { width:96px; aspect-ratio: 4/3; object-fit: cover; object-position: top; border: 1px solid var(--hair); border-radius: 3px; }
+a.card .cw { display:flex; flex-direction:column; font: 13px/18px "Helvetica Neue", Helvetica, Arial, sans-serif; }
+a.card .cw span { color: var(--soft); }
+a.card .go { margin-top: 4px; }
+a.card:hover { border-color:#2120DE; } a.card:hover b, a.card:hover .go { color:#2120DE; }
+.sec .stetwin .sheet { height: 440px; }
+figure img { cursor: zoom-in; }
+.ref img { cursor: pointer; }
+#lb { position: fixed; inset: 0; background: rgba(255,255,255,.97); display:none; align-items:center; justify-content:center; padding: 32px; z-index: 20; cursor: zoom-out; }
+#lb.open { display:flex; }
+#lb figure { max-width: 92vw; display:flex; flex-direction:column; align-items:center; margin:0; }
+#lb img { max-width: 92vw; max-height: 84vh; object-fit: contain; outline:none; cursor: zoom-out; }
+#lb figcaption { font: 13px/18px "Helvetica Neue", Helvetica, Arial, sans-serif; color:#555; margin-top: 10px; max-width: 640px; text-align:center; }
+@media (max-width: 760px) { .sec, .duo { grid-template-columns: 1fr; } .sec .words p { max-width:none; } details.pre .body { padding-left: 0; } details.pre .pics { flex-direction: column; } details.pre figure { width:100%; } }
+@media (max-width: 760px) { main { grid-template-columns: 1fr; } .text p, .list a, .facts { max-width:none; } figure { justify-self:stretch; margin-top: calc(var(--l) * 2); } }
+.list a:hover b, .text p a:hover, .facts a:hover { color:#2120DE; }
+</style></head>
+<body>
+<header><a href="index.html">Studio OS</a><nav class="elsewhere"><a href="https://www.caseysimone.com" target="_blank" rel="noopener">Substack</a><a href="https://www.tiktok.com/@_gaysic_" target="_blank" rel="noopener">TikTok</a></nav><span class="draft"></span></header>
+<main class="secs airy"><div class="sec"><div class="words"><p><b>Knolling</b></p><p>Knolling is a menu-bar clock for the two kinds of work my weeks divide into: research and teaching. I tap one to clock in, tap it again to clock out, and tap the other to switch. Every session, with any notes I type or dictate, goes into one plain Markdown file on my own computer. Knolling lays my hours out flat, as my studio lays out its files, so I can see where the time went.</p><p class="cite">Source: <a href="https://github.com/caseysimoneb/knolling" target="_blank" rel="noopener">github.com/caseysimoneb/knolling</a>, MIT licensed.</p></div><div class="wopen">
+<div class="w-hero" role="img" aria-label="My desktop, with Henry P. Bosse's 1885 cyanotype as the wallpaper. A cursor opens Knolling from the menu bar with nothing running, turns teaching on, and closes the menu; the menu bar starts counting.">
+  <img src="images/knolling/desktop-closed.jpg" alt="">
+  <span class="mb"><span class="idle"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="live">T 0:01</span></span>
+  <img class="menu m-idle" src="images/knolling/menu-idle.jpg" alt="">
+  <img class="menu m-teach" src="images/knolling/menu-teaching.jpg" alt="">
+  <span class="ring"></span>
+  <svg class="cursor" viewBox="0 0 16 24" aria-hidden="true"><path d="M1 1 L1 19 L5.6 14.6 L8.6 21.6 L11.4 20.4 L8.4 13.6 L14.6 13.6 Z" fill="#000" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"/></svg>
+</div>
+<style>
+.w-hero { position:relative; width:100%; max-width: 860px; aspect-ratio: 2000/1299; overflow:hidden; border-radius: 6px; box-shadow: 0 18px 50px rgba(0,0,0,.12); container-type: inline-size; }
+.w-hero > img { position:absolute; inset:0; width:100%; height:100%; display:block; }
+/* the menu-bar item: covers the screenshot's own, then shows idle or live */
+.w-hero .mb { position:absolute; left:71.4%; top:0.3%; width:3.9%; height:2.5%; background:#f4efec; display:flex; align-items:center; justify-content:center; }
+.w-hero .mb .idle { display:grid; grid-template-columns: repeat(3, .22cqw); gap: .14cqw; animation: wh-idle 14s infinite; }
+.w-hero .mb .idle i { width:.22cqw; height:.22cqw; background:#222; border-radius: 1px; display:block; }
+.w-hero .mb .live { position:absolute; font: 500 .92cqw/1 "SF Mono", Menlo, monospace; color:#222; opacity:0; animation: wh-live 14s infinite; }
+/* the menu: Knolling's own rendering, from sample data, where the real menu opens */
+.w-hero img.menu { inset:auto; left:62.6%; top:3.9%; width:21.5%; height:auto; border-radius: 1.3cqw; box-shadow: 0 1cqw 3cqw rgba(0,0,0,.18); opacity:0; }
+.w-hero .m-idle { animation: wh-midle 14s infinite; }
+.w-hero .m-teach { animation: wh-mteach 14s infinite; }
+.w-hero .cursor { position:absolute; width: 1.6%; left:55%; top:45%; animation: wh-move 14s infinite cubic-bezier(.45,.05,.3,1); filter: drop-shadow(0 1px 1px rgba(0,0,0,.3)); }
+.w-hero .ring { position:absolute; width: 3%; aspect-ratio:1; border-radius:50%; border: 2px solid rgba(255,255,255,.95); box-shadow: 0 0 0 1px rgba(0,0,0,.15); opacity:0; transform: translate(-50%,-50%) scale(.4); animation: wh-ring 14s infinite; }
+@keyframes wh-midle  { 0%,22% {opacity:0} 24%,41% {opacity:1} 42%,100% {opacity:0} }
+@keyframes wh-mteach { 0%,41% {opacity:0} 42%,72% {opacity:1} 74%,100% {opacity:0} }
+@keyframes wh-idle { 0%,41% {opacity:1} 42%,93% {opacity:0} 96%,100% {opacity:1} }
+@keyframes wh-live { 0%,41% {opacity:0} 42%,93% {opacity:1} 96%,100% {opacity:0} }
+@keyframes wh-move {
+  0%,8% { left:55%; top:45%; } 20%,24% { left:73.1%; top:0.9%; }
+  36%,44% { left:76.3%; top:19.2%; } 58%,62% { left:76.3%; top:19.2%; }
+  70%,74% { left:73.1%; top:0.9%; } 88%,100% { left:55%; top:45%; } }
+@keyframes wh-ring {
+  0%,22.4% { opacity:0; left:73.3%; top:1.5%; transform: translate(-50%,-50%) scale(.4); }
+  23% { opacity:1; left:73.3%; top:1.5%; } 25.5% { opacity:0; left:73.3%; top:1.5%; transform: translate(-50%,-50%) scale(1.4); }
+  41.4% { opacity:0; left:76.6%; top:19.8%; transform: translate(-50%,-50%) scale(.4); }
+  42% { opacity:1; left:76.6%; top:19.8%; } 44.5% { opacity:0; left:76.6%; top:19.8%; transform: translate(-50%,-50%) scale(1.4); }
+  72.4% { opacity:0; left:73.3%; top:1.5%; transform: translate(-50%,-50%) scale(.4); }
+  73% { opacity:1; left:73.3%; top:1.5%; } 75.5%,100% { opacity:0; left:73.3%; top:1.5%; transform: translate(-50%,-50%) scale(1.4); } }
+@media (prefers-reduced-motion: reduce) { .w-hero .m-teach { animation:none; opacity:1; } .w-hero .m-idle, .w-hero .cursor, .w-hero .ring { display:none; } .w-hero .mb .idle { animation:none; opacity:0; } .w-hero .mb .live { animation:none; opacity:1; } }
+</style><p class="wcap">My desktop, with Henry P. Bosse’s 1885 cyanotype of the Mississippi as the wallpaper, and Knolling open from the menu bar. The menu is drawn from sample data.</p></div></div>
+<div class="rows"><details class="row"><summary><span class="n">1</span><span class="h">Why a clock</span><span class="t">I didn’t see how my time divided until a summer engineering internship where I had to clock in and clock out.</span><span class="pm"></span></summary><div class="sec"><div class="words"><h2><span class="n">1</span><span>Why a clock</span></h2><p>I didn’t see how my time divided until a summer engineering internship where I had to clock in and clock out. As someone critical of surveillance capitalism, I found the ritual supportive: organizing, even animating. Clocking in gave the day a shape, so I took the ritual back for myself.</p><p>The name comes from knolling: laying objects out flat, at right angles, so every piece and its relations can be seen at once. Tom Sachs made it a studio rule.</p><p class="cite">Tom Sachs, <a href="https://www.youtube.com/watch?v=s-CTkbHnpNQ" target="_blank" rel="noopener"><i>10 Bullets, #8: “Always Be Knolling”</i></a>, YouTube.</p></div><div><div class="w-video"><iframe src="https://www.youtube-nocookie.com/embed/s-CTkbHnpNQ" title="Tom Sachs, 10 Bullets #8: Always Be Knolling" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe></div><style>.w-video { width:100%; max-width: 420px; aspect-ratio: 16/9; } .w-video iframe { width:100%; height:100%; border:0; border-radius: 6px; }</style></div></div></details><details class="row"><summary><span class="n">2</span><span class="h">Time, drawn the way I feel it</span><span class="t">I have temporal synesthesia: I experience time as having a shape in space, and Knolling draws it that way.</span><span class="pm"></span></summary><div class="sec"><div class="words"><h2><span class="n">2</span><span>Time, drawn the way I feel it</span></h2><p>I have temporal synesthesia: I experience time as having a shape in space, and Knolling draws it that way. The year is an oval in perspective, each month placed by hand: September low on the left, winter bunched along the top, summer spread along the bottom. The week is flat, and each hour worked is an upright tick, solid for research and hollow for teaching. There is no daily quota: no ring to fill, no day that is full. The year also holds my deadlines, read from a plain file of their own.</p></div><div>
+<div class="w-year">
+<svg viewBox="0 -4 288 108" role="img" style="cursor:crosshair" aria-label="Knolling's year: an oval with each month placed by hand, a lit week moving clockwise round it, clouds drifting behind as the seasons change.">
+  <defs><filter id="wy-blur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="7"/></filter>
+  <clipPath id="wy-clip"><rect x="0" y="-4" width="288" height="108" rx="6"/></clipPath></defs>
+  <g clip-path="url(#wy-clip)">
+    <rect class="sky" x="0" y="-4" width="288" height="108"/>
+    <g class="clouds" filter="url(#wy-blur)"></g>
+    <ellipse cx="144" cy="43" rx="114" ry="29" fill="none" stroke="#fff" stroke-opacity=".55" stroke-width=".8"/>
+    <g class="dots" fill="#fff" fill-opacity=".8"><circle cx="53.9" cy="60.8" r="1.5"/><circle cx="32.8" cy="49.4" r="1.5"/><circle cx="53.1" cy="25.5" r="1.5"/><circle cx="91.7" cy="17.2" r="1.5"/><circle cx="138.0" cy="14.0" r="1.5"/><circle cx="158.9" cy="14.2" r="1.5"/><circle cx="181.3" cy="15.6" r="1.5"/><circle cx="207.6" cy="18.9" r="1.5"/><circle cx="237.6" cy="26.4" r="1.5"/><circle cx="238.6" cy="59.2" r="1.5"/><circle cx="176.4" cy="70.8" r="1.5"/><circle cx="96.4" cy="69.3" r="1.5"/></g>
+    <path class="lit" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/>
+    <g class="dl"></g>
+    <circle class="now" r="2.1" fill="#fff"/>
+    <g class="labels" fill="#fff" font-family="SF Mono, Menlo, monospace" font-size="8" text-anchor="middle"><text x="39.5" y="73.4" data-m="0">sep</text><text x="23.9" y="45.6" data-m="1">oct</text><text x="36.2" y="21.7" data-m="2">nov</text><text x="90.2" y="12.7" data-m="3">dec</text><text x="151.7" y="10.3" data-m="4">jan</text><text x="173.0" y="9.7" data-m="5">feb</text><text x="195.5" y="12.1" data-m="6">mar</text><text x="219.6" y="15.0" data-m="7">apr</text><text x="244.6" y="22.3" data-m="8">may</text><text x="239.4" y="71.0" data-m="9">jun</text><text x="163.6" y="83.0" data-m="10">jul</text><text x="81.0" y="82.8" data-m="11">aug</text></g>
+    <text class="wk" x="280" y="99" fill="#fff" fill-opacity=".7" font-family="SF Mono, Menlo, monospace" font-size="6" text-anchor="end"></text>
+    <text class="next" x="8" y="99" fill="#fff" font-family="SF Mono, Menlo, monospace" font-size="6"></text>
+  </g>
+</svg><div class="tree dtree"></div><p class="hint">One year in forty seconds. Knolling reads the dates from a plain file of deadlines, here as placeholders; click one to find it on the year, or click the year to add a date of yours.</p></div>
+<style>
+.w-year { width:100%; max-width: 860px; }
+.w-year svg { display:block; width:100%; height:auto; border-radius: 8px; }
+.w-year .labels text { fill-opacity:.55; transition: fill-opacity .6s; }
+.w-year .labels text.on { fill-opacity:1; font-weight:700; }
+.w-year .dl circle { cursor:pointer; } .w-year .dl circle.sel { stroke:#fff; stroke-width:1.2; }
+.w-year .dtree { margin-top: 28px; }
+.w-year .dtree li { cursor:pointer; } .w-year .dtree li .n { white-space: pre; }
+.w-year .dtree li:hover .n, .w-year .dtree li.sel .n { color:#2120DE; }
+.w-year .dtree .left { color:#8A8A8A; } .w-year .dtree li.next .left { color:#000; }
+.w-year .hint { font: 12px/16px "Helvetica Neue", Helvetica, Arial, sans-serif; color:#555; margin-top: 8px; }
+</style>
+<script>(() => {
+  const svg = document.currentScript.previousElementSibling.previousElementSibling.querySelector('svg');
+  const D = [[53.9,60.8],[32.8,49.4],[53.1,25.5],[91.7,17.2],[138.0,14.0],[158.9,14.2],[181.3,15.6],[207.6,18.9],[237.6,26.4],[238.6,59.2],[176.4,70.8],[96.4,69.3]], CX = 144, CY = 43, RX = 114, RY = 29, YEAR_MS = 40000;
+  // each month's angle on the ring, unwrapped so the year runs clockwise without jumping
+  const ang = []; let prev = null;
+  for (const [x, y] of D) { let a = Math.atan2((y - CY) / RY, (x - CX) / RX); if (prev !== null) while (a < prev) a += 2 * Math.PI; ang.push(a); prev = a; }
+  ang.push(ang[0] + 2 * Math.PI);
+  const pt = a => [CX + RX * Math.cos(a), CY + RY * Math.sin(a)];
+  // the year by day, September first: where each month starts, and how long it is
+  const LEN = [30,31,30,31,31,28,31,30,31,30,31,31], START = LEN.map((_, i) => LEN.slice(0, i).reduce((a, b) => a + b, 0));
+  const NAMES = ['sep','oct','nov','dec','jan','feb','mar','apr','may','jun','jul','aug'];
+  const dayAngle = d => { d = ((d % 365) + 365) % 365; let i = 11; while (START[i] > d) i--; return ang[i] + (ang[i + 1] - ang[i]) * ((d - START[i]) / LEN[i]); };
+  const dayName = d => { let i = 11; while (START[i] > d) i--; return (Math.floor(d - START[i]) + 1) + ' ' + NAMES[i]; };
+  // deadlines, as Knolling reads them from a plain file; placeholders, as in the sample
+  const dl = [
+    { d: START[3] + 6, name: '[Conference] full paper', at: '[City]' },
+    { d: START[5] + 14, name: '[Journal] revision', at: '—' },
+    { d: START[7] + 19, name: '[Workshop] abstract', at: '[City]' },
+    { d: START[11] + 25, name: '[Term] begins', at: '—' },
+  ];
+  const dlg = svg.querySelector('.dl'), next = svg.querySelector('.next'), list = svg.parentElement.querySelector('.dtree');
+  const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+  function drawList() {
+    const order = dl.map((e, j) => [e, j]).sort((a, b) => a[0].d - b[0].d);
+    const pad = (s, n) => s + ' '.repeat(Math.max(1, n - s.length));
+    list.innerHTML = '<div class="t k"><span class="n">deadlines.md</span><ul>' + order.map(([e, j]) => `<li data-j="${j}" class="${picked === j ? 'sel' : ''}"><div class="t"><span class="n">${pad(dayName(e.d), 8)}${pad(esc(e.name), 26)}<span class="left">${e.at !== '—' ? esc(e.at) + ' · ' : ''}<span class="days"></span></span></span></div></li>`).join('') + '</ul></div>';
+    list.querySelectorAll('li').forEach(li => li.addEventListener('click', () => { const j = +li.dataset.j; picked = picked === j ? null : j; drawDeadlines(); }));
+  }
+  let picked = null;
+  function drawDeadlines() {
+    dlg.innerHTML = '';
+    dl.forEach((e, j) => { const [x, y] = pt(dayAngle(e.d)); const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      c.setAttribute('cx', x); c.setAttribute('cy', y); c.setAttribute('r', 2.4); c.setAttribute('fill', e.mine ? '#ffe9a6' : '#cfe0ff');
+      if (picked === j) c.classList.add('sel');
+      c.addEventListener('click', ev => { ev.stopPropagation(); picked = picked === j ? null : j; drawDeadlines(); }); dlg.appendChild(c); });
+    drawList();
+  }
+  drawDeadlines();
+  svg.addEventListener('click', ev => {   // add a date of mine where I click
+    const p = svg.createSVGPoint(); p.x = ev.clientX; p.y = ev.clientY; const q = p.matrixTransform(svg.getScreenCTM().inverse());
+    let best = 0, bd = 1e9; for (let d = 0; d < 365; d++) { const [x, y] = pt(dayAngle(d)); const dd = (x - q.x) ** 2 + (y - q.y) ** 2; if (dd < bd) { bd = dd; best = d; } }
+    dl.push({ d: best, name: '[a date of mine]', at: '—', mine: true }); picked = dl.length - 1; drawDeadlines();
+  });
+  // the sky through the year, Prussian blue to the paler cyan of winter (September first)
+  const sky = ['#2c5596','#2f5aa0','#3864a8','#4370b0','#4d7ab8','#4a76b5','#4270b0','#3a69ab','#3462a6','#2d5a9f','#284f91','#2a5293'];
+  const mix = (a, b, t) => '#' + [1,3,5].map(i => Math.round(parseInt(a.substr(i,2),16)*(1-t) + parseInt(b.substr(i,2),16)*t).toString(16).padStart(2,'0')).join('');
+  const clouds = svg.querySelector('.clouds'), ns = 'http://www.w3.org/2000/svg', C = [];
+  for (let i = 0; i < 9; i++) {
+    const e = document.createElementNS(ns, 'ellipse');
+    const c = { x: Math.random() * 340 - 26, y: 6 + Math.random() * 74, rx: 26 + Math.random() * 40, ry: 7 + Math.random() * 10, v: .004 + Math.random() * .008, e };
+    e.setAttribute('ry', c.ry); e.setAttribute('rx', c.rx); e.setAttribute('fill', '#eef3fb'); clouds.appendChild(e); C.push(c);
+  }
+  const labels = [...svg.querySelectorAll('.labels text')], lit = svg.querySelector('.lit'), now = svg.querySelector('.now'), wk = svg.querySelector('.wk'), rect = svg.querySelector('.sky');
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let t0 = performance.now();
+  function frame(t) {
+    const f = still ? 0.1 : ((((t - t0) % YEAR_MS) + YEAR_MS) % YEAR_MS) / YEAR_MS;  // the first frame can come a hair before t0
+    const day = Math.min(f * 365, 364.99); let i = 11; while (START[i] > day) i--; const k = (day - START[i]) / LEN[i], m = i + k;
+    const a = dayAngle(day);
+    const [x, y] = pt(a); now.setAttribute('cx', x); now.setAttribute('cy', y);
+    const [x1, y1] = pt(a - .09), [x2, y2] = pt(a + .09);
+    lit.setAttribute('d', `M${x1},${y1} A${RX},${RY} 0 0 1 ${x2},${y2}`);
+    labels.forEach((l, j) => l.classList.toggle('on', j === i));
+    rect.setAttribute('fill', mix(sky[i], sky[(i + 1) % 12], k));
+    const winter = Math.max(0, Math.cos((m - 4.5) / 12 * 2 * Math.PI));  // most cloud around January
+    for (const c of C) { c.x += still ? 0 : c.v * 16 * (1 + winter); if (c.x - c.rx > 300) c.x = -c.rx - 20;
+      c.e.setAttribute('cx', c.x); c.e.setAttribute('cy', c.y); c.e.setAttribute('fill-opacity', (.18 + .32 * winter).toFixed(2)); }
+    wk.textContent = 'WEEK ' + String(((35 + Math.floor(f * 52)) % 52) + 1);
+    let e = picked !== null ? dl[picked] : null, left = 0;
+    if (!e) { let best = 1e9; for (const x of dl) { const ahead = ((x.d - day) % 365 + 365) % 365; if (ahead < best) { best = ahead; e = x; } } left = Math.round(best); }
+    else left = Math.round(((e.d - day) % 365 + 365) % 365);
+    list.querySelectorAll('li').forEach(li => { const x = dl[+li.dataset.j], ahead = Math.round(((x.d - day) % 365 + 365) % 365);
+      li.querySelector('.days').textContent = ahead + ' days'; li.classList.toggle('next', x === e && picked === null); });
+    next.textContent = e ? (picked !== null ? '' : 'NEXT  ') + e.name + (picked !== null && e.at !== '—' ? ' · ' + e.at : '') + '   ' + dayName(e.d) + ' · ' + left + ' days' : '';
+    if (!still) requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();</script></div></div></details><details class="row"><summary><span class="n">3</span><span class="h">Aesthetic inspiration</span><span class="t">The palette comes from nineteenth-century cyanotype survey photographs: Prussian blue leaning cyan, and the warm white of the paper.</span><span class="pm"></span></summary><div class="sec"><div class="words"><h2><span class="n">3</span><span>Aesthetic inspiration</span></h2><p>The palette comes from nineteenth-century cyanotype survey photographs: Prussian blue leaning cyan, and the warm white of the paper. The menu is a pane of glass over its own backdrop, pale forms seen through moving water, drawn fresh each week.</p></div><div><div class="sidegrid"><figure class="side"><img src="images/knolling/bosse-1889-wingdams-below-winona-cyanotype.jpg" alt=""><figcaption>Henry P. Bosse, <i>No. 88. Wingdams below Winona, Minnesota</i> (1889), from the same survey as the plate on this site’s front page. <a href="https://www.metmuseum.org/art/collection/search/669908" target="_blank" rel="noopener">The Metropolitan Museum of Art</a>, CC0.</figcaption></figure><figure class="side"><img src="images/knolling/atkins-c1853-rhodomenia-polycarpa-cyanotype.jpg" alt=""><figcaption>Anna Atkins, <i>Rhodomenia Polycarpa</i> (ca. 1853). <a href="https://www.metmuseum.org/art/collection/search/286896" target="_blank" rel="noopener">The Metropolitan Museum of Art</a>, CC0.</figcaption></figure><figure class="side"><img src="images/knolling/menu-april.png" alt=""><figcaption>An April evening, off the clock: that week’s backdrop under the glass, drawn from sample data.</figcaption></figure></div></div></div></details><details class="row"><summary><span class="n">4</span><span class="h">The repository</span><span class="t">Knolling’s code is public, under an MIT licence.</span><span class="pm"></span></summary><div class="sec"><div class="words"><h2><span class="n">4</span><span>The repository</span></h2><p>Knolling’s code is public, under an MIT licence. It can be changed in many ways: other kinds of work than research and teaching, a year redrawn to someone else’s synesthesia, the Claude record and token counts turned on or off. Whatever the changes, Knolling keeps one plain text file, and my hand edits to it are never overwritten.</p><p class="cite">Source: <a href="https://github.com/caseysimoneb/knolling" target="_blank" rel="noopener">github.com/caseysimoneb/knolling</a>, MIT licensed.</p></div><div>
+<div class="w-clock">
+  <div class="menu">
+    <div class="kinds">
+      <button data-k="research"><b>research</b><span>start</span></button>
+      <button data-k="teaching"><b>teaching</b><span>start</span></button>
+    </div>
+    <input class="note" placeholder="a note on what you’re doing" maxlength="90">
+    <div class="today"><span class="lab">TODAY</span><ol></ol></div>
+    <div class="foot"><span class="clk"></span><span>a minute a second</span></div>
+  </div>
+  <div class="file"><div class="bar"><span class="lights"><i></i><i></i><i></i></span><span class="tab">knolling.md</span><em>click to edit by hand</em><span class="app">Stet</span></div><pre spellcheck="false" contenteditable="plaintext-only"></pre>
+    <a class="stetbar" href="stet.html"><span><b>Stet</b> · A Markdown reader and writing page.</span><span>The project →</span></a></div>
+</div>
+<p class="w-clock-cap">Clock in, switch, add a note, then change a time in the file: the menu reads it back. The faint numbers are tokens, what Claude used during a session when the Claude record is on.</p>
+<style>
+.w-clock { display:grid; grid-template-columns: 290px 1fr; gap: 32px; align-items:start; max-width: 900px; }
+.w-clock .menu { border-radius: 18px; padding: 18px 18px 12px; color:#fff; min-height: 320px; display:flex; flex-direction:column;
+  background: radial-gradient(120px 50px at 30% 30%, rgba(255,255,255,.35), transparent), radial-gradient(160px 60px at 80% 70%, rgba(255,255,255,.25), transparent), linear-gradient(160deg, #3a66aa, #2b5596);
+  box-shadow: 0 18px 40px rgba(0,0,0,.18), inset 0 0 0 1px rgba(255,255,255,.25); font: 12px "SF Mono", Menlo, monospace; }
+.w-clock .kinds { display:grid; grid-template-columns: 1fr 1fr; gap: 14px; border-bottom: 1px solid rgba(255,255,255,.25); padding-bottom: 12px; }
+.w-clock button { all:unset; cursor:pointer; display:flex; flex-direction:column; gap: 4px; padding-bottom: 6px; border-bottom: 2px solid transparent; }
+.w-clock button b { font: 400 22px "Helvetica Neue", Helvetica, Arial, sans-serif; letter-spacing: -.01em; color: rgba(255,255,255,.55); }
+.w-clock button span { color: rgba(255,255,255,.6); }
+.w-clock button.on { border-bottom-color:#fff; } .w-clock button.on b, .w-clock button:hover b { color:#fff; }
+.w-clock .note { all:unset; margin-top: 12px; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,.25); color:#fff; font: 12.5px "Helvetica Neue", Helvetica, Arial, sans-serif; }
+.w-clock .note::placeholder { color: rgba(255,255,255,.55); }
+.w-clock .today { margin-top: 14px; flex:1; } .w-clock .lab { color: rgba(255,255,255,.6); font-size: 10.5px; }
+.w-clock ol { list-style:none; margin: 8px 0 0; padding:0; }
+.w-clock li { display:grid; grid-template-columns: 1fr auto auto auto; gap: 9px; padding: 4px 0; color: rgba(255,255,255,.92); }
+.w-clock li .d, .w-clock li .t { color: rgba(255,255,255,.5); } .w-clock li .n { grid-column: 1 / -1; color: rgba(255,255,255,.75); font: 12px "Helvetica Neue", Helvetica, Arial, sans-serif; padding-left: 10px; }
+.w-clock .foot { display:flex; justify-content:space-between; color: rgba(255,255,255,.5); font-size: 10.5px; margin-top: 10px; }
+.w-clock .file { border: 1px solid #C8C8C8; border-radius: 10px; overflow:hidden; background:#fff; box-shadow: 0 12px 30px rgba(0,0,0,.08); }
+.w-clock .file { box-shadow: 0 18px 50px rgba(0,0,0,.10); }
+.w-clock .file .bar { display:flex; align-items:center; gap: 14px; height: 36px; padding: 0 14px; border-bottom: 1px solid #E4E4E4; background:#FAFAFA; font: 12px "Helvetica Neue", Helvetica, Arial, sans-serif; color:#555; }
+.w-clock .file .lights { display:flex; gap: 7px; } .w-clock .file .lights i { width: 11px; height: 11px; border-radius:50%; background:#DCDCDC; display:block; }
+.w-clock .file .tab { font-weight:700; color:#000; }
+.w-clock .file .bar em { font-style:normal; color:#8A8A8A; } .w-clock .file .app { margin-left:auto; color:#8A8A8A; }
+.w-clock pre { margin:0; padding: 24px 28px 28px; font: 13px/1.6 "Helvetica Neue", Helvetica, Arial, sans-serif; color:#111; white-space: pre-wrap; min-height: 290px; outline:none;
+  background-image: radial-gradient(rgba(0,0,0,.12) 1px, transparent 1.2px); background-size: 22px 22px; }
+.w-clock a.stetbar { display:flex; justify-content:space-between; align-items:center; height: 38px; padding: 0 16px; border-top: 1px solid #E4E4E4; background:#FAFAFA; font: 12px "Helvetica Neue", Helvetica, Arial, sans-serif; color:#555; text-decoration:none; }
+.w-clock a.stetbar b { color:#000; } .w-clock a.stetbar:hover, .w-clock a.stetbar:hover b { color:#2120DE; }
+.w-clock pre:focus { background: #FCFCFA; box-shadow: inset 0 0 0 1px #2120DE; }
+.w-clock-cap { font: 12px/16px "Helvetica Neue", Helvetica, Arial, sans-serif; color:#555; margin-top: 10px; max-width: 640px; }
+@media (max-width: 760px) { .w-clock { grid-template-columns: 1fr; } }
+</style>
+<script>(() => {
+  const root = document.currentScript.previousElementSibling.previousElementSibling.previousElementSibling;
+  const btns = [...root.querySelectorAll('button')], ol = root.querySelector('ol'), pre = root.querySelector('pre'), clk = root.querySelector('.clk'), note = root.querySelector('.note');
+  const t0 = Date.now(), DAY0 = 9 * 60;              // the day starts at 09:00; a minute passes each second
+  const nowMin = () => DAY0 + Math.floor((Date.now() - t0) / 1000);
+  const hm = m => String(Math.floor(m / 60) % 24).padStart(2, '0') + ':' + String(((m % 60) + 60) % 60).padStart(2, '0');
+  const dur = m => Math.floor(m / 60) + 'h ' + String(m % 60).padStart(2, '0') + 'm';
+  const date = new Date().toISOString().slice(0, 10);
+  // sessions, newest first: {k, s, e (null while running), notes: [[minute, words]], tok}
+  let sessions = [{ k: 'research', s: 8 * 60 + 30, e: 8 * 60 + 52, notes: [[8 * 60 + 52, 'outlined [the next section]']], tok: 41000 }];
+  const live = () => sessions.find(x => x.e === null);
+  function clockOut(x) { x.e = nowMin(); if (x.e - x.s < 1 && !x.notes.length) sessions = sessions.filter(y => y !== x); }  // a mis-tap disappears
+  btns.forEach(b => b.addEventListener('click', () => {
+    const k = b.dataset.k, l = live();
+    if (l) clockOut(l);
+    if (!l || l.k !== k) sessions.unshift({ k, s: nowMin(), e: null, notes: [], tok: 0 });
+    draw(true);
+  }));
+  note.addEventListener('keydown', ev => {
+    if (ev.key !== 'Enter' || !note.value.trim()) return;
+    const x = live() || sessions[0]; if (!x) return;
+    x.notes.push([nowMin(), note.value.trim()]); note.value = ''; draw(true);
+  });
+  const kTok = n => n >= 1000 ? Math.round(n / 1000) + 'k' : String(n);
+  function fileText() {
+    const head = '# Knolling — time log\n\nResearch and teaching, laid out flat. Newest first.\nSafe to edit by hand: fix a time, rewrite a note.\n\n';
+    return head + sessions.map(x => `- ${date}  ${hm(x.s)}–${x.e === null ? '     ' : hm(x.e)}  ${x.k}  ${x.e === null ? 'running' : dur(x.e - x.s)}` +
+      x.notes.map(([m, w]) => `\n    - ${hm(m)}  ${w}`).join('')).join('\n');
+  }
+  // the file is the truth: edit it, and the menu reads it back (durations are recomputed, not read)
+  const toMin = s => { const [h, m] = s.split(':').map(Number); return h * 60 + m; };
+  function readFile() {
+    const out = []; let cur = null;
+    for (const line of pre.innerText.split('\n')) {
+      const m = line.match(/^- \S+\s+(\d{1,2}:\d{2})–(\d{1,2}:\d{2})?\s*(research|teaching)/);
+      if (m) { const old = sessions[out.length]; cur = { k: m[3], s: toMin(m[1]), e: m[2] ? toMin(m[2]) : null, notes: [], tok: old ? old.tok : 0 }; out.push(cur); continue; }
+      const n = line.match(/^\s+- (\d{1,2}:\d{2})\s+(.*)$/);
+      if (n && cur) cur.notes.push([toMin(n[1]), n[2]]);
+    }
+    sessions = out;
+  }
+  pre.addEventListener('input', () => { readFile(); draw(false); });
+  function draw(writeFile) {
+    const n = nowMin(), l = live(); clk.textContent = hm(n);
+    if (l) l.tok += 600 + Math.floor(Math.random() * 1800);
+    btns.forEach(b => { const on = l && l.k === b.dataset.k; b.classList.toggle('on', !!on);
+      b.querySelector('span').textContent = on ? (hm(n - l.s).replace(/^0/, '') + ' – stop') : (l ? 'switch' : 'start'); });
+    ol.innerHTML = sessions.map(x => `<li><span>${hm(x.s)}–${x.e === null ? 'now' : hm(x.e)}</span><span>${x.k}</span><span class="t">${x.tok ? kTok(x.tok) : ''}</span><span class="d">${dur(Math.max(0, (x.e === null ? n : x.e) - x.s))}</span>` +
+      x.notes.map(([, w]) => `<span class="n">${w.replace(/</g, '&lt;')}</span>`).join('') + '</li>').join('');
+    if (writeFile && document.activeElement !== pre) pre.textContent = fileText();
+  }
+  draw(true); setInterval(() => draw(!!live()), 1000);
+})();</script></div></div></details></div></main>
+<div id="lb"><figure><img alt=""><figcaption></figcaption></figure></div><script>
+document.querySelectorAll('details.row > .sec').forEach(sec => sec.addEventListener('click', e => {
+  if (e.target.closest('a, button, input, textarea, pre, svg, iframe, img, li, [contenteditable], .w-hero, .w-clock')) return;
+  if (String(getSelection())) return;
+  sec.parentElement.open = false;
+}));
+const lb = document.getElementById('lb');
+document.querySelectorAll('main figure img').forEach(img => img.addEventListener('click', () => {
+  lb.querySelector('img').src = img.src;
+  const c = img.closest('figure').querySelector('figcaption'); lb.querySelector('figcaption').innerHTML = c ? c.innerHTML : '';
+  lb.classList.add('open'); }));
+lb.addEventListener('click', () => lb.classList.remove('open'));
+addEventListener('keydown', e => { if (e.key === 'Escape') lb.classList.remove('open'); });
+</script>
+</body></html>
