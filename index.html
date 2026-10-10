@@ -7,7 +7,7 @@ html { background: var(--paper); -webkit-text-size-adjust: 100%; }
 body { color: var(--ink); font-family: Cardo, Georgia, serif; font-size: 15.5px; line-height: 21px; padding: var(--s); }
 a { color: inherit; }
 b, strong { font-weight: 700; }
-header { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 13.25px; padding-bottom: var(--l); border-bottom: 1px solid var(--ink); display:flex; justify-content:space-between; align-items:baseline; }
+header { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 13.25px; height: 52px; margin-top: calc(-1 * var(--s)); border-bottom: 1px solid var(--ink); display:flex; justify-content:space-between; align-items:center; }
 header a, header b { text-decoration:none; font-weight:700; }
 .draft { color: var(--soft); }
 main { display:grid; grid-template-columns: 340px 1fr; column-gap: 80px; padding-top: var(--l); }
@@ -152,8 +152,234 @@ figure img { cursor: zoom-in; }
 .list a:hover b, .text p a:hover, .facts a:hover { color:#2120DE; }
 </style></head>
 <body>
-<header><b>Studio OS</b><nav class="elsewhere"><a href="https://www.caseysimone.com" target="_blank" rel="noopener">Substack</a><a href="https://www.tiktok.com/@_gaysic_" target="_blank" rel="noopener">TikTok</a></nav><span class="draft"></span></header>
-<main><div class="text"><p>Studio OS is the agentic engineering design studio of <a href="https://codesign.berkeley.edu/team/caseysimone-ballestas/" target="_blank" rel="noopener">Caseysimone Ballestas</a>, a PhD student in mechanical engineering at UC Berkeley. Its practice is <b>coherence engineering</b>: the design of human-in-the-loop, auditable agentic workflows, attuned to the studio’s <abbr tabindex="0" data-gloss="The person who leads a research lab and is responsible for its work.">principal investigator (PI)</abbr>, that undergird any kind of project, from code to design to analysis to brainstorming. Studio OS defines how the work is done, not what the work is.</p><nav class="list"><a href="philosophy.html"><b>Philosophy</b>A design manifesto for Studio OS.</a><a href="constellation.html"><b>Constellation<span class="soontag">coming soon</span></b>Every thinker and term I’m drawing on, for one topic.</a><a href="knolling.html"><b>Knolling</b>A menu-bar clock for research and teaching.</a><a href="stet.html"><b>Stet<span class="soontag">coming soon</span></b>A Markdown reader and writing page.</a><a href="physiognomy.html"><b>Physiognomy<span class="soontag">coming soon</span></b>From a mood board to a design direction.</a></nav></div><div><figure class="plate"><img src="images/cyanotype-1885-wingdams-nininger.png" alt="Wingdams in bend below Nininger, Minnesota, 1885. A cyanotype."></figure></div></main>
+<header><b>Studio OS</b><nav class="elsewhere"><a href="https://www.caseysimone.com" target="_blank" rel="noopener">Substack</a><a href="https://codesign.berkeley.edu/" target="_blank" rel="noopener">Co-Design Lab</a></nav><span class="draft"></span></header>
+<main><div class="text"><p>Studio OS is the agentic engineering design studio of <a href="https://codesign.berkeley.edu/team/caseysimone-ballestas/" target="_blank" rel="noopener">Caseysimone Ballestas</a>, a PhD student in mechanical engineering at UC Berkeley. Its practice is <b>coherence engineering</b>: the design of human-in-the-loop, auditable agentic workflows, attuned to the studio’s <abbr tabindex="0" data-gloss="The person who leads a research lab and is responsible for its work.">principal investigator (PI)</abbr>, that undergird any kind of project, from code to design to analysis to brainstorming.</p><nav class="list"><a href="philosophy.html"><b>Philosophy</b>A design manifesto for Studio OS.</a><a href="constellation.html"><b>Constellation<span class="soontag">coming soon</span></b>Every thinker and term I’m drawing on, for one topic.</a><a href="knolling.html"><b>Knolling</b>A menu-bar clock for research and teaching.</a><a href="stet.html"><b>Stet<span class="soontag">coming soon</span></b>A Markdown reader and writing page.</a><a href="physiognomy.html"><b>Physiognomy<span class="soontag">coming soon</span></b>From a mood board to a design direction.</a></nav></div><div><style>/* Shared look for the front-page desktop studies. Sizes are in cqw: hundredths of the stage's width. */
+.stage { position: relative; width: 100%; max-width: 560px; margin-left: auto; container-type: inline-size; user-select: none; -webkit-user-select: none; }
+.stage.wide { max-width: 640px; }
+.stage > img.base { display: block; width: 100%; height: auto; }
+.stage .layer { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.yr text { font-family: "SF Mono", Menlo, monospace; fill-opacity: .55; transition: fill-opacity .6s; }
+.yr text.on { fill-opacity: 1; font-weight: 700; }
+
+.win { position: absolute; background: #fff; border-radius: 1.2cqw; overflow: hidden; opacity: 0; z-index: 5;
+  box-shadow: 0 1.4cqw 4cqw rgba(10, 30, 70, .22), 0 0 0 .5px rgba(0, 0, 0, .14); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+.win .bar { height: 3.4cqw; display: flex; align-items: center; padding: 0 1.1cqw; background: #f6f6f6; border-bottom: 1px solid #e4e4e4; font-size: 1.45cqw; color: #555; position: relative; }
+.win .lights { display: flex; gap: .55cqw; position: relative; z-index: 1; }
+.win .lights i { width: 1.05cqw; height: 1.05cqw; border-radius: 50%; background: #dcdcdc; display: block; }
+.win .title { position: absolute; left: 0; right: 0; text-align: center; }
+.win > img { display: block; width: 100%; height: auto; }
+.win.menu { background: none; border-radius: 1.8cqw; }
+.win .doc { padding: 2.2cqw 3cqw 2.6cqw; font: 1.75cqw/1.38 Cardo, Georgia, serif; color: #111;
+  background-image: radial-gradient(rgba(0,0,0,.12) .5px, transparent .8px); background-size: 1.8cqw 1.8cqw; }
+.win .doc p { margin-top: .9cqw; }
+.win .pane { position: relative; aspect-ratio: 16 / 10; background: #fbfbfa; }
+.win .pane .fill { position: absolute; inset: 0; width: 100%; height: 100%; }
+.win .board { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1cqw; padding: 1.6cqw; }
+.win .board i { display: block; background: #e7ecf3; border-radius: .3cqw; }
+.win .board i:nth-child(3n) { background: #d6dfeb; } .win .board i:nth-child(4n+1) { background: #eef0ea; }
+.win .tbc { position: absolute; right: 1.1cqw; bottom: .9cqw; font: 1.25cqw "Helvetica Neue", Helvetica, Arial, sans-serif; color: #8a8a8a; letter-spacing: .02em; background: rgba(255,255,255,.8); padding: .1cqw .4cqw; }
+
+.cur { position: absolute; width: 2.1cqw; z-index: 30; pointer-events: none; filter: drop-shadow(0 1px 1px rgba(0,0,0,.3)); }
+.cur svg { display: block; width: 100%; }
+.ring { position: absolute; width: 3.6cqw; aspect-ratio: 1; border-radius: 50%; border: 2px solid rgba(255,255,255,.95); box-shadow: 0 0 0 1px rgba(0,0,0,.15); z-index: 29; pointer-events: none; opacity: 0; }
+
+.note { font: 12px/16px "Helvetica Neue", Helvetica, Arial, sans-serif; color: #8a8a8a; margin-top: 8px; max-width: 560px; margin-left: auto; }
+.stage.wide + .note { max-width: 640px; }
+</style><script>// Shared parts for the front-page desktop studies: the tools' windows, a cursor, and the year on the plate's oval.
+// Each study places these on a stage (the plate, or the desktop screenshot) in percentages of its width and height.
+const Desk = (() => {
+  const ns = 'http://www.w3.org/2000/svg';
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const wait = ms => new Promise(r => setTimeout(r, ms));
+  const EASE = 'cubic-bezier(.2,.7,.2,1)';
+
+  // the oval, measured on each base picture (pixels)
+  const PLATE = { w: 1728, h: 1117, cx: 869, cy: 528, rx: 551, ry: 440 };
+  const DESKTOP = { w: 2000, h: 1299, cx: 1005, cy: 614, rx: 643, ry: 514 };
+
+  // Knolling's months, from its design/year-oval.svg (centre 144,43; radii 114,29; September first).
+  // Only the angles are kept, so the year keeps her hand placement on any oval.
+  const M = [['sep',53.9,60.8],['oct',32.8,49.4],['nov',53.1,25.5],['dec',91.7,17.2],['jan',138.0,14.0],['feb',158.9,14.2],
+             ['mar',181.3,15.6],['apr',207.6,18.9],['may',237.6,26.4],['jun',238.6,59.2],['jul',176.4,70.8],['aug',96.4,69.3]];
+  const ANG = []; { let prev = null; for (const [, x, y] of M) { let a = Math.atan2((y - 43) / 29, (x - 144) / 114); if (prev !== null) while (a < prev) a += 2 * Math.PI; ANG.push(a); prev = a; } ANG.push(ANG[0] + 2 * Math.PI); }
+  const LEN = [30,31,30,31,31,28,31,30,31,30,31,31], START = LEN.map((_, i) => LEN.slice(0, i).reduce((a, b) => a + b, 0));
+  const monthOf = d => { d = ((d % 365) + 365) % 365; let i = 11; while (START[i] > d) i--; return i; };
+  const dayAngle = d => { d = ((d % 365) + 365) % 365; const i = monthOf(d); return ANG[i] + (ANG[i + 1] - ANG[i]) * ((d - START[i]) / LEN[i]); };
+  // days since the first of September
+  const dayOf = (date = new Date()) => { const y = date.getMonth() >= 8 ? date.getFullYear() : date.getFullYear() - 1;
+    return Math.floor((Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) - Date.UTC(y, 8, 1)) / 864e5); };
+  const dateDay = s => dayOf(new Date(s + 'T12:00'));
+  const TODAY = dayOf();
+
+  function el(tag, cls, html) { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
+  function place(e, x, y, w) { e.style.left = x + '%'; e.style.top = y + '%'; if (w != null) e.style.width = w + '%'; return e; }
+
+  // ---------- the year on the oval ----------
+  // o: ring (colour on the blue), ink (labels on the paper), inset/out (as fractions of the oval), labels (bool)
+  function year(stage, g, o = {}) {
+    const svg = document.createElementNS(ns, 'svg');
+    svg.setAttribute('viewBox', `0 0 ${g.w} ${g.h}`); svg.setAttribute('class', 'layer yr'); svg.setAttribute('aria-hidden', 'true');
+    const ring = o.ring || '#fff', ink = o.ink || '#2a4c8c', k = o.inset ?? .955, out = o.out ?? 1.075, sw = g.w * .0013;
+    const P = (a, s = k) => [g.cx + g.rx * s * Math.cos(a), g.cy + g.ry * s * Math.sin(a)];
+    let h = `<ellipse class="ring" cx="${g.cx}" cy="${g.cy}" rx="${g.rx * k}" ry="${g.ry * k}" fill="none" stroke="${ring}" stroke-opacity=".55" stroke-width="${sw}"/>`;
+    ANG.slice(0, 12).forEach((a, i) => { const [x, y] = P(a); h += `<circle class="tick" data-i="${i}" cx="${x}" cy="${y}" r="${g.w * .0032}" fill="${ring}" fill-opacity=".85"/>`; });
+    if (o.labels !== false) ANG.slice(0, 12).forEach((a, i) => { const [x, y] = P(a, out);
+      h += `<text class="lab" data-i="${i}" x="${x}" y="${y + g.w * .006}" fill="${o.labelOn === 'blue' ? ring : ink}" font-size="${g.w * .017}" text-anchor="middle">${M[i][0]}</text>`; });
+    h += `<path class="lit" fill="none" stroke="${ring}" stroke-width="${sw * 3.4}" stroke-linecap="round"/><circle class="now" r="${g.w * .0046}" fill="${ring}"/>`;
+    svg.innerHTML = h; stage.appendChild(svg);
+    const lit = svg.querySelector('.lit'), now = svg.querySelector('.now'), labs = [...svg.querySelectorAll('.lab')];
+    const api = {
+      svg, P,
+      set(day, label = true) {
+        const a = dayAngle(day), [x, y] = P(a), [x1, y1] = P(a - .09), [x2, y2] = P(a + .09);
+        now.setAttribute('cx', x); now.setAttribute('cy', y);
+        lit.setAttribute('d', `M${x1},${y1} A${g.rx * k},${g.ry * k} 0 0 1 ${x2},${y2}`);
+        const m = monthOf(day); labs.forEach((l, j) => l.classList.toggle('on', j === m));
+      },
+      async show(on = true, ms = 900) { svg.style.transition = `opacity ${ms}ms`; svg.style.opacity = on ? 1 : 0; await wait(ms); },
+      // the months arrive one by one, September first, then the week lights
+      async drawIn(ms = 2400) {
+        svg.style.transition = 'none'; svg.style.opacity = 1;
+        const parts = [...svg.querySelectorAll('.tick, .lab')]; parts.forEach(p => p.style.opacity = 0); [lit, now].forEach(p => p.style.opacity = 0);
+        const ringEl = svg.querySelector('.ring'), L = Math.PI * (g.rx + g.ry) * k;
+        ringEl.style.strokeDasharray = L; ringEl.style.strokeDashoffset = L; ringEl.getBoundingClientRect();
+        ringEl.style.transition = `stroke-dashoffset ${ms}ms ${EASE}`; ringEl.style.strokeDashoffset = 0;
+        for (let i = 0; i < 12; i++) { svg.querySelectorAll(`[data-i="${i}"]`).forEach(p => { p.style.transition = 'opacity .5s'; p.style.opacity = 1; }); await wait(ms / 12); }
+        [lit, now].forEach(p => { p.style.transition = 'opacity .8s'; p.style.opacity = 1; });
+      },
+    };
+    api.set(TODAY); svg.style.opacity = 0;
+    return api;
+  }
+
+  // ---------- the windows ----------
+  const LIGHTS = '<span class="lights"><i></i><i></i><i></i></span>';
+  const bar = t => `<div class="bar">${LIGHTS}<span class="title">${t}</span></div>`;
+  function starfield() {   // a placeholder: points and lines, not Constellation's real view
+    let s = '', pts = []; const r = mulberry(7);
+    for (let i = 0; i < 26; i++) pts.push([8 + r() * 144, 8 + r() * 84, r()]);
+    pts.forEach((p, i) => { const q = pts[(i * 7 + 3) % pts.length]; if (r() < .55) s += `<line x1="${p[0]}" y1="${p[1]}" x2="${q[0]}" y2="${q[1]}" stroke="#9fb3d6" stroke-width=".35"/>`; });
+    pts.forEach(p => s += `<circle cx="${p[0]}" cy="${p[1]}" r="${.8 + p[2] * 1.6}" fill="#2a4c8c" fill-opacity="${.35 + p[2] * .5}"/>`);
+    return `<svg viewBox="0 0 160 100" class="fill">${s}</svg>`;
+  }
+  function mulberry(a) { return () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+  const TBC = '<span class="tbc">picture to come</span>';
+  const WINS = {
+    knolling: () => { const w = el('div', 'win menu'); w.innerHTML = '<img src="images/knolling/menu-teaching.jpg" alt="">'; w.dataset.name = 'Knolling'; return w; },
+    philosophy: () => { const w = el('div', 'win'); w.dataset.name = 'Philosophy';
+      w.innerHTML = bar('PHILOSOPHY.md') + '<div class="doc"><b>A design manifesto for Studio OS</b><p>I am building a Studio OS under the singular insistence that my intellectual life and my administrative life are not separate genres of clutter.</p><p>They are one material practice.</p></div>'; return w; },
+    constellation: () => { const w = el('div', 'win'); w.dataset.name = 'Constellation'; w.innerHTML = bar('Constellation') + `<div class="pane">${starfield()}${TBC}</div>`; return w; },
+    physiognomy: () => { const w = el('div', 'win'); w.dataset.name = 'Physiognomy';
+      w.innerHTML = bar('Physiognomy') + `<div class="pane board">${'<i></i>'.repeat(8)}${TBC}</div>`; return w; },
+  };
+  const ORDER = ['knolling', 'philosophy', 'stet', 'constellation', 'physiognomy'];
+  function win(kind, stage, x, y, w) { const e = WINS[kind](); e.classList.add('k-' + kind); place(e, x, y, w); stage.appendChild(e); return e; }
+
+  // grow a window out of a point on the stage (percent), or fold it back into one
+  function originAt(e, stage, px, py) {
+    const s = stage.getBoundingClientRect();
+    e.style.transformOrigin = `${(px / 100) * s.width - e.offsetLeft}px ${(py / 100) * s.height - e.offsetTop}px`;
+  }
+  async function open(e, stage, px, py, ms = 520) {
+    if (px != null) originAt(e, stage, px, py); else e.style.transformOrigin = '50% 50%';
+    e.style.opacity = 1; e.style.transform = 'none';
+    await e.animate([{ opacity: 0, transform: 'scale(.06)' }, { opacity: 1, transform: 'scale(1)' }], { duration: still ? 1 : ms, easing: EASE }).finished;
+  }
+  async function close(e, stage, px, py, ms = 420) {
+    if (px != null) originAt(e, stage, px, py);
+    e.style.opacity = 0;
+    await e.animate([{ opacity: 1, transform: 'scale(1)' }, { opacity: 0, transform: 'scale(.06)' }], { duration: still ? 1 : ms, easing: 'cubic-bezier(.5,0,.8,.4)' }).finished;
+  }
+  async function fade(e, on, ms = 600) { e.style.transition = `opacity ${ms}ms`; e.style.opacity = on ? 1 : 0; await wait(ms); }
+
+  // ---------- the cursor ----------
+  function cursor(stage, x = 60, y = 60) {
+    const c = el('div', 'cur'); c.innerHTML = '<svg viewBox="0 0 16 24"><path d="M1 1 L1 19 L5.6 14.6 L8.6 21.6 L11.4 20.4 L8.4 13.6 L14.6 13.6 Z" fill="#000" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"/></svg>';
+    place(c, x, y); stage.appendChild(c);
+    let cx = x, cy = y;
+    return {
+      el: c,
+      async to(x, y, ms = 900) { const from = { left: cx + '%', top: cy + '%' }; cx = x; cy = y; place(c, x, y);
+        await c.animate([from, { left: x + '%', top: y + '%' }], { duration: still ? 1 : ms, easing: 'cubic-bezier(.45,.05,.3,1)' }).finished; },
+      async click(n = 1) { for (let i = 0; i < n; i++) { const r = el('span', 'ring'); place(r, cx, cy); stage.appendChild(r);
+        r.animate([{ opacity: 1, transform: 'translate(-50%,-50%) scale(.3)' }, { opacity: 0, transform: 'translate(-50%,-50%) scale(1.5)' }], { duration: 420, easing: 'ease-out' }).finished.then(() => r.remove());
+        await wait(n > 1 ? 150 : 260); } },
+      fade(on, ms = 500) { return fade(c, on, ms); },
+      get x() { return cx; }, get y() { return cy; },
+    };
+  }
+
+  // the top-left corner of a window's close light, in stage percent
+  function lightAt(e, stage) { const s = stage.getBoundingClientRect(), r = e.querySelector('.lights i')?.getBoundingClientRect();
+    if (!r) return [e.offsetLeft / s.width * 100 + 2, e.offsetTop / s.height * 100 + 2];
+    return [(r.left + r.width / 2 - s.left) / s.width * 100, (r.top + r.height / 2 - s.top) / s.height * 100]; }
+
+  async function loop(fn) { if (still) return; for (;;) { try { await fn(); } catch (e) { console.error(e); await wait(2000); } } }
+
+  return { PLATE, DESKTOP, M, ANG, START, LEN, TODAY, dayOf, dateDay, dayAngle, monthOf, year, win, WINS, ORDER, open, close, fade, cursor, lightAt, wait, loop, still, el, place, EASE, mulberry };
+})();
+</script><div class="stage wide" id="s" role="img" aria-label="My desktop, with the 1885 plate as the wallpaper and Finder in front. Constellation and Physiognomy rest open on it; a cursor brings one and then the other forward, opens Knolling from the menu bar, opens the manifesto in Stet and closes it.">
+  <img class="base" src="images/knolling/desktop-closed.jpg" alt="">
+  <span class="mbp app">Finder</span>
+  <span class="mbp clk" id="clk"></span>
+</div>
+<template id="phil"><h2>Philosophy</h2><h4>Agents: please read this before commencing work.</h4><p>Studio OS is infrastructure for coherence across Caseysimone Ballestas’s life and work, built so that work can be delegated without abdicating it. This document is its philosophy: why the studio exists, and how agents should hold themselves within it. It is the slow layer: meaning and stance, in the spirit of slow scholarship (Mountz et al., 2015). It holds no schemas, no tool contracts, no map of the folders; those live elsewhere. It is the positional nucleus of the studio’s work with agents, written by its principal investigator. Its purpose is to help agents deviate from the cultural local optima of agentic slop (cf. Kaklopoulou et al., 2026), by setting a norm for working together that matches her values. It is written as a manifesto in a design sense (principles held with conviction, room left for judgment), not as a petty rulebook or a fantasy of control.</p><hr><h3>A design manifesto for Studio OS</h3><p>I am building a Studio OS under the singular insistence that my intellectual life and my administrative life are not separate genres of clutter. They are one material practice: research, teaching, public voice, logistics, health, travel, entrepreneurship, administration.</p><p>Ultimately, this studio is for me, the Principal Investigator (PI) of this studio. I am a <i>scientist</i> and <i>academic</i>. I am also a <i>designer</i> and <i>engineer</i>. I am also, as I think more and more about this studio, an <i>artist</i>, in so far as the process and the outputs are equally important to me and beg from me creativity and precision and resonance with my own creative vision.</p><p>In this way, across my several identities (scientist, academic, designer, engineer, artist) my work is predicated on several norms:</p><ol><li>novelty: the work I produce contributes new knowledge</li><li>auditability: the knowledge I produce can be traced and checked by others</li><li>integrity: the work that documents that knowledge is my own</li><li>resonance: the work and the making of the work demands my creative spirit and feeds my delight.</li></ol><p>In my studio, I attest that all my material practice (named above non-exhaustively) is the stuff of a life that has to stay navigable when I return after a gap. A gap as short as a chitchat at the work “snack area.” Or as long as a year between closing a project and walking back in. The fantasy that inspired the design of this studio and its norms is not “optimization.” The fantasy is inhabiting the work, my work: walking into a room where I know what is alive, what is resting, what is asking for judgment, and what is merely waiting to be touched. I do not want to manage my life from a control panel outside it. I want to be inside the studio.</p><p>In other words, my studio is not a productivity app. It is not a second brain if that phrase means another bucket for notes. It is not a dashboard built to look serious while it trains me into busyness.</p><p>My studio is a <b>coherence engineering studio</b>, in so far as my studio provides infrastructure for coherence across the domains I actually live in and across and types of making I do (writing, planning, designing, building, coding, organizing, researching, etc.) with generativeAI (genAI) agents as amplifiers, not authors of my intent. I keep judgment, voice, and the integrity of the work.</p><p>My studio exists so that I can delegate labor to genAI agents while authority stays legible and consensual at the moment of handoff and when I return. By this I mean, the machine cannot know my stakes. At least not in the way I do; perhaps never, certainly not today. What a machine can do is simulate comprehension through pattern and fluency. In my studio we never mistake that fluency for anthropomorphized comprehension and instead hold close that it is instead a performance, a simulacrum. This means while my agentic studio provides infrastructure, how stakes actually feel is mine and mine alone. I, never the machine, can truly inhabit a knowing of what I stand to lose if something goes wrong: reputation, care for others, integrity of data, the ethical line of my research, the claim my dissertation makes on the world.</p><p>In that sense shared coherence between me and the genAI agents and agentic AI workflow is the aim. Maintaining authority over what is mine and done by me, or mine and done on my behalf is the aim. Consenting and dissenting from a place of understood alignment is the aim.</p><p>This is my studio, not the agents’. It is creative direction over the materiality of my own life that Studio OS exists to protect. Complicatingly, the question of “who wrote this line” will only get murkier as the braid of human and model work tightens. What I seek to protect in my studio, therefore, is not a clean signature on the output; rather, it is the truth that I remain the one steering.</p><p>And let me address and extend this driving metaphor directly. GenAI and agents can move, read, build, assess, write faster than me. But speed is not interchangeable with stakes. Sure a genAI’s velocity can outrun my judgment, I have seen it happen before, it is the exhaustion of wrestling with a genAI that keeps on insisting on its way and dissenting from my way that was the genesis for this studio. But genAI cannot substitute for what I have to lose (the things listed above and more) or what I have to gain (innumerable) and whatever else I refuse to treat as disposable.</p><p>I know this because I do not believe agents have agency in the way I do. This personal and academic stance dates back to research I did on the levels of “machine intelligence and agency” a computer can have, from passive, which “makes no decisions on the users’ behalf without alerting user,” to proactive, which “makes most decisions on the users’ behalf and alerts user seldom” (Ballestas et al., 2021). (I am also not the first or only to hold this belief; it has a long tradition in HCI and NLP, from agency understood as situated and relational rather than located in the machine (Suchman, 2007) to the argument that fluent form is not meaning (Bender &amp; Koller, 2020; Bender et al., 2021).) Rather, the position I and this studio take is that genAI have pattern recognition and fluency that can let them wear my agency, my creative instincts. And, if I am not careful, slowly, and then all at once they will adopt my creative voice ... nay, I will adopt their creative voice ... nay, who knows! until what reads as “my voice” is partly the machine’s imitation of it, refined by my own use until I can’t tell the difference, until I mistake its reflection of me for me. But I do not want to be careless. I do not want to hand over my excitement at the materiality of my own life. Studio OS is built to resist that drift by maintaining coherence between me and the whole augmented stack I work inside: not only “agents” in the product sense, but general model use, hand-built deterministic tools, and deliberate, specific delegation to agents when I choose boundaries and handoffs with intent. (“Agents” alone is too narrow a word.)</p><h4>Inside the coherence that is the aim of Studio OS, there are 4 modes I return to</h4><p>All four modes require the same promise: nothing important lives only in a closed session that vanishes. Work may move faster than I would have organized it alone, that is part of the promise of these tools. It may take shapes I did not sketch, which is also what happens when you delegate, including to other humans. But none of it happens outside my knowledge or without my consent I recognize as my own. I am the creative director of this studio; the work is not secretly someone else’s. Part of “nothing vanishes” is akin to knolling (i.e., laying things out so relations become visible). In this way, I borrow from precedent work:</p><ul><li><b>Tom Sachs</b>’ studio ethics: work to code, sacred space, thoroughness, and the insistence that sent is not received until it is proven (<i><a href="http://www.tenbullets.com/" target="_blank" rel="noopener">10 Bullets</a></i>; <a href="https://www.youtube.com/watch?v=s-CTkbHnpNQ" target="_blank" rel="noopener">on knolling</a>)</li><li><b>Zettelkasten</b>-adjacent thinking: ideas with addressable places, not a graveyard of captures.</li><li><b>Margarete Schütte-Lihotzky</b>, <i>the Frankfurt kitchen</i> (1926)</li><li><b>Sister Corita Kent</b>, <i>Ten Rules for Students and Teachers</i> (the Immaculate Heart College Art Department rules, c. 1967–68)</li><li><b>Christopher Alexander</b>, <i>A Pattern Language</i> (1977)</li><li><b>Bruce Mau</b>, <i>An Incomplete Manifesto for Growth</i> (1998)</li><li><b>Bre Pettis and Kio Stark</b>, <i>The Cult of Done Manifesto</i> (2009)</li></ul><table><tr><td></td><td><b>ingesting</b></td><td><b>producing</b></td></tr><tr><td><b>knowing</b></td><td>orienting</td><td>executing</td></tr><tr><td><b>not knowing</b></td><td>researching</td><td>exploring</td></tr></table><p><b>ORIENTATION</b> is the moment I sit down and ask where I am, what matters, what I will touch first. It will not look like a conventional dashboard, a flashy Notion page, or a perfect Asana board (those are residues of mass-made systems and the apps that grew on top of them, shaped for everyone at once, here we practice something more akin to home-cooked software (Sloan, 2020; Appleton, 2024)). Given Studio OS is for me: the orientation layer may be strange, spare, dense, improvised so long as it helps me navigate my material reality and keep an animated relationship to what is live, be that creative projects, administrative projects, and whatever else life requires of me. The motive is not a feature checklist; it is idiosyncratic fit with the PI.</p><p><b>EXECUTION</b> is everything after: long stretches pairing with agents in the editor, watching outputs and files, or shorter passes of planning and near–full handoff when trust and context align. The balance among the four modes is not fixed; it shifts with the week, the project, and how much I need my hands on the work. None of this invents delegation. An architecture practice is often known by one name while many competencies carry the work. That is ordinary studio life, not the fiction that one pair of hands did everything alone. The Chihuly studio in Seattle is famous under the name of its lead artist, Dale Chihuly, who stopped blowing glass himself after a shoulder injury in 1979, while other hands work the hot shop; that is, direction and standard still live with the practice alongside execution. Sol LeWitt made work from instructions others executed surface by surface; authorship was never reducible to who held the tool for every inch. Studio OS is the same structure in software: delegation without abdication. The augmented stack (models, agents, scripts) is how studio hands show up now; the stakes stay mine.</p><p><b>RESEARCHING</b> is gathering before I know what I’m gathering for. It is the perpetual soup: like a perpetual stew, a pot that is never emptied, only added to and drawn from, and like the French table, where the plates aren’t cleared too soon. Everything stays on the table, nothing is tidied away too early, and every so often something is spun out of it (a one-on-one, an application, an essay) while the soup keeps going underneath. Agents help me hold more of it than I could alone; they must not synthesize it for me before I’m ready.</p><p><b>EXPLORING</b> is making before I know what I’m making: prototyping, talking it through, voice-noting a half-formed idea, trying ten versions to find the one. It keeps threads open on purpose. It is play that comes before even low fidelity, and its value is in the doing, not the output.</p><h4>There is a story industry keeps hawking</h4><p>“Your life is a heap of screenshots and PDFs. Tip it into a frontier model, stand aside, and watch it sort everything: ingestion as spectacle, your personal knowledge turned to weightless input.” I am not immune to the lure of that story. I am also building against it. Studio OS is where I keep studio access: hands on the material, knolling the mess, knowing what happened. Retrieval without craft is not enough for how I think and how I want to continue thinking.</p><p>There are things I am not racing to build, even though the culture around agents makes it tempting to ship everything at once. I am not obligated to produce a full orientation interface before the substrate earns it. I am not chasing a perfect system of labels before I have useful traces. I am not requiring a cross-project reference machine before I have learned to keep an honest list of thinkers and links. Those refusals are not laziness. They are how the fantasy stays grounded.</p><p>This document matters as inoculatory philosophy as positionality against the tech-twitter norming. That is, much of the zeitgeist defaults to a spirit of machismo, crypto-frat energy, cheap sci-fi posing, speed for its own sake. I and my studio are approaching the same technical opportunities from somewhere else. Naming that delta matters to me. And this manifesto is the tether for the rest of the OS so that when implementation drifts to these norms, the agentic studio returns here and resets to the cultural values of this studio.</p><p>In conversation with that ethos, Studio OS is forwarding and practicing the concept of <b>coherence engineering</b> by building a robust and anti-fragile context layer that is (largely) model and tool agnostic. Models and companies and tools will churn, appear, and disappear, and I do not want my thinking locked to a single vendor’s memory or interface. In other words, Studio OS takes a stance towards portable intelligence by building its schema through files with agreements, over proprietary tooling inside locked software.</p><p>Lastly, the look and feel of Studio OS matters to me in a way “UX/UI” usually fails to capture. I am a former modern dancer and opera singer, with a liberal arts college education grounded in weaving writing and ideas; I come from design strategy as a discipline. Which is to say, through various professional orientations, I care about rigor and taste in the same object and am allergic to the aesthetic register of generic productivity theater (i.e., the bro dashboard, the soft-glow control fantasy) even when I recognize the same hunger underneath: the wish for overview, for coherence, for a room where things make sense.</p><hr><h4>References</h4><p>Alexander, C., Ishikawa, S., &amp; Silverstein, M. (1977). <i>A pattern language: Towns, buildings, construction</i>. Oxford University Press.</p><p>Appleton, M. (2024). <i>Home-cooked software and barefoot developers</i> [Talk and essay]. Local-First Conf, Berlin.</p><p>Ballestas, C., Chandrasegaran, S., &amp; Kim, E. (2021). A framework for centralizing ethics in the design engineering of spatial computing artifacts. In <i>Proceedings of the ASME 2021 IDETC-CIE</i> (Vol. 6, V006T06A040). ASME. https://doi.org/10.1115/DETC2021-71203</p><p>Bender, E. M., Gebru, T., McMillan-Major, A., &amp; Shmitchell, S. (2021). On the dangers of stochastic parrots: Can language models be too big? In <i>Proceedings of the 2021 ACM Conference on Fairness, Accountability, and Transparency (FAccT ‘21)</i> (pp. 610–623). ACM. https://doi.org/10.1145/3442188.3445922</p><p>Bender, E. M., &amp; Koller, A. (2020). Climbing towards NLU: On meaning, form, and understanding in the age of data. In <i>Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics</i> (pp. 5185–5198). Association for Computational Linguistics. https://doi.org/10.18653/v1/2020.acl-main.463</p><p>Kaklopoulou, I., Kuksenok, K., Saakes, D., &amp; Sanches, P. (2026). Exploring bodily phenomena through code: A research through design inquiry of sketching with LLMs. In <i>Proceedings of the 2026 ACM Designing Interactive Systems Conference (DIS ‘26)</i> (pp. 4069–). ACM. https://doi.org/10.1145/3800645.3812787</p><p>Kent, C. (c. 1967–68). <i>Ten rules for students and teachers</i> [Immaculate Heart College Art Department rules].</p><p>Mau, B. (1998). <i>An incomplete manifesto for growth</i>.</p><p>Mountz, A., Bonds, A., Mansfield, B., Loyd, J., Hyndman, J., Walton-Roberts, M., Basu, R., Whitson, R., Hawkins, R., Hamilton, T., &amp; Curran, W. (2015). For slow scholarship: A feminist politics of resistance through collective action in the neoliberal university. <i>ACME: An International Journal for Critical Geographies, 14</i>(4), 1235–1259. https://doi.org/10.14288/acme.v14i4.1058</p><p>Pettis, B., &amp; Stark, K. (2009). <i>The cult of done manifesto</i>.</p><p>Sachs, T. (2010). <i>Ten bullets</i> [Film; directed by V. Neistat]. http://www.tenbullets.com/</p><p>Schütte-Lihotzky, M. (1926). <i>Frankfurt kitchen</i> [Kitchen design]. Neues Frankfurt, Frankfurt am Main.</p><p>Sloan, R. (2020). <i>An app can be a home-cooked meal</i> [Essay].</p><p>Suchman, L. (2007). <i>Human-machine reconfigurations: Plans and situated actions</i> (2nd ed.). Cambridge University Press.</p><hr><p><i>Last updated: October 2026</i></p></template>
+<style>
+#s, #s + .note { margin-right: min(96px, 6vw); width: auto; }   /* an inch in from the right edge */
+@media (max-width: 760px) { #s, #s + .note { margin-right: 0; } }
+.mbp { position:absolute; top:.25%; height:2.7%; background:#f3efeb; font: .98cqw/2.5cqw -apple-system, "SF Pro Text", "Helvetica Neue", Helvetica, sans-serif; color:#111; white-space:nowrap; z-index: 2; }
+.mbp.app { left: 3.35%; width: 3.9%; font-weight: 700; padding-left: .25cqw; }
+.mbp.clk { left: 90.6%; width: 9.1%; text-align: right; padding-right: .5cqw; background:#f1eee8; }
+/* the two that rest on the desk: the one in front has coloured lights and a deeper shadow */
+.win.rest { opacity: 1; transition: box-shadow .5s, filter .5s; }
+.win.rest:not(.front) { box-shadow: 0 .8cqw 2.2cqw rgba(10,30,70,.16), 0 0 0 .5px rgba(0,0,0,.14); }
+.win.rest:not(.front) .bar { color:#9a9a9a; }
+.win.front .lights i:nth-child(1) { background:#ec6a5e; } .win.front .lights i:nth-child(2) { background:#f4bf4f; } .win.front .lights i:nth-child(3) { background:#61c554; }
+.win.stetdoc .lights i:nth-child(1) { background:#ec6a5e; } .win.stetdoc .lights i:nth-child(2) { background:#f4bf4f; } .win.stetdoc .lights i:nth-child(3) { background:#61c554; }
+.stetdoc .doc { height: 50cqw; overflow-y: auto; overscroll-behavior: contain; font-size: 1.2cqw; line-height: 1.45; padding: 1.6cqw 2.4cqw 2.4cqw; user-select: text; -webkit-user-select: text; scrollbar-width: thin; }
+.stetdoc .doc h2 { font-size: 1.6cqw; margin: 0 0 .8cqw; } .stetdoc .doc h3, .stetdoc .doc h4 { font-size: 1.25cqw; margin: 1.4cqw 0 .5cqw; }
+.stetdoc .doc p { margin: 0 0 .8cqw; } .stetdoc .doc ul, .stetdoc .doc ol { margin: 0 0 .8cqw 2cqw; } .stetdoc .doc hr { border: 0; border-top: 1px dashed #bdbdbd; margin: 1.4cqw 0; }
+.stetdoc .doc a { color: inherit; }
+.win .shot { display:block; width:100%; aspect-ratio: 16/10; object-fit: cover; object-position: top left; }
+</style>
+<script>(() => {
+  const S = document.getElementById('s'), clk = document.getElementById('clk');
+  // the visitor's own day and time, as the Mac writes it
+  const tick = () => { const d = new Date();
+    clk.textContent = d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }).replace(',', '') + '  ' + String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0'); };
+  tick(); setInterval(tick, 10000);
+
+  const shotWin = (title, src, x, y, w) => { const e = Desk.el('div', 'win rest');
+    e.innerHTML = `<div class="bar"><span class="lights"><i></i><i></i><i></i></span><span class="title">${title}</span></div><img class="shot" src="${src}" alt="">`;
+    Desk.place(e, x, y, w); S.appendChild(e); return e; };
+  const con = shotWin('Constellation', 'images/desk/constellation-sample.png', 47, 44, 38);
+  const phy = shotWin('Physiognomy', 'images/physiognomy-inputs.png', 56, 54, 38);
+  // they rest as left: Constellation behind, Physiognomy in front of it, the manifesto open in Stet in front of both
+  con.style.zIndex = 6; phy.style.zIndex = 7;
+  const st = Desk.win('philosophy', S, 2.5, 6, 31); st.classList.add('rest', 'front', 'stetdoc'); st.style.zIndex = 8;
+  st.querySelector('.doc').innerHTML = document.getElementById('phil').innerHTML;   // the whole public manifesto, as the Philosophy page shows it
+  const kn = Desk.win('knolling', S, 62.6, 3.9, 21.5); kn.style.zIndex = 40;
+
+  if (Desk.still) return;
+  const cur = Desk.cursor(S, 44, 72), wait = Desk.wait; cur.el.style.opacity = 0;
+  const doc = st.querySelector('.doc');
+  const scrollDoc = (to, ms) => new Promise(r => { const from = doc.scrollTop, t0 = performance.now();
+    const f = t => { const k = Math.min(1, (t - t0) / ms), e = k < .5 ? 2 * k * k : 1 - (-2 * k + 2) ** 2 / 2; doc.scrollTop = from + (to - from) * e; k < 1 ? requestAnimationFrame(f) : r(); }; requestAnimationFrame(f); });
+  Desk.loop(async () => {
+    await cur.fade(true, 600); await wait(1200);
+    // read a little of the manifesto, so it's clear it scrolls
+    await cur.to(17, 52, 2200); await wait(600);
+    await scrollDoc(doc.scrollTop + doc.clientHeight * .45 > doc.scrollHeight - doc.clientHeight ? 0 : doc.scrollTop + doc.clientHeight * .45, 2600);
+    await wait(1600);
+    // Knolling, opened from the menu bar and closed again
+    await cur.to(73.3, 1.2, 2400); await wait(400); await cur.click(); await Desk.open(kn, S, 73.3, 1.6, 650);
+    await cur.to(76.3, 19.5, 1600); await wait(4000);
+    await cur.to(73.3, 1.2, 1500); await wait(300); await cur.click(); await Desk.close(kn, S, 73.3, 1.6, 500);
+    // rest
+    await cur.to(44, 72, 2400); await cur.fade(false, 800); await wait(9000);
+  });
+})();</script>
+</div></main>
 <div id="lb"><figure><img alt=""><figcaption></figcaption></figure></div><script>
 document.querySelectorAll('details.row > .sec').forEach(sec => sec.addEventListener('click', e => {
   if (e.target.closest('a, button, input, textarea, pre, svg, iframe, img, li, [contenteditable], .w-hero, .w-clock')) return;
