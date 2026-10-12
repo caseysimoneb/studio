@@ -41,6 +41,7 @@ header nav.elsewhere a:hover { color:#2120DE; }
 header .draft:not(:empty) { margin-left: 24px; }
 .cite { display:block; font-size: 13px; line-height: 18px; color: var(--soft); margin-top: 4px; }
 .cite a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+.text p:has(+ p.cite) { margin-bottom: 0; }
 .docwrap { grid-column: 1 / -1; margin-top: calc(var(--l) * 2); padding-top: var(--l); border-top: 1px solid var(--hair); }
 .stetwin { max-width: 860px; border: 1px solid #C8C8C8; border-radius: 10px; overflow: hidden; box-shadow: 0 18px 50px rgba(0,0,0,.10); background:#fff; }
 .stetwin .bar { display:flex; align-items:center; gap: 14px; height: 38px; padding: 0 14px; border-bottom: 1px solid #E4E4E4; background: #FAFAFA; font: 12px "Helvetica Neue", Helvetica, Arial, sans-serif; color:#555; }
@@ -154,7 +155,9 @@ figure img { cursor: zoom-in; }
 <body>
 <header><a href="index.html">Studio OS</a><nav class="elsewhere"><a href="https://www.caseysimone.com" target="_blank" rel="noopener">Substack</a><a href="https://codesign.berkeley.edu/" target="_blank" rel="noopener">Co-Design Lab</a></nav><span class="draft"></span></header>
 <main><div class="text"><p><b>Physiognomy</b><br><span>From a mood board to a design direction.</span></p><dl class="facts"><div><dt>source</dt><dd><a href="https://github.com/caseysimoneb/physiognomy" target="_blank" rel="noopener">GitHub ↗</a></dd></div></dl><p>After Lorraine Daston’s <i>Cloud Physiognomy</i>: describing what flummoxes description.</p>
+<p class="cite">Lorraine Daston, <a href="https://doi.org/10.1525/rep.2016.135.1.45" target="_blank" rel="noopener">“Cloud Physiognomy”</a>, <i>Representations</i> 135, 2016.</p>
 <p>It learns my visual taste from references I like and dislike, and writes it down as a profile agents read before they make anything visual. After PseudoClient (Lin and Martelaro, 2021): learn by example, from a handful, by juxtaposition.</p>
+<p class="cite">David Chuan-En Lin and Nikolas Martelaro, <a href="https://doi.org/10.1145/3461778.3462115" target="_blank" rel="noopener">“Learning Personal Style from Few Examples”</a>, ACM DIS 2021.</p>
 <p>Taste isn’t a mean. Things belong to it in their assemblage, so the profile keeps groups and edges, never an average.</p>
 <p>It breaks every page into materials (typefaces cut from the page itself, type scales, colours, spacing, layouts), each kept with where it came from. A new design pulls a few materials across sources, on purpose, and records what it pulled.</p></div><div><figure><img src="images/physiognomy-inputs.png" alt=""><figcaption>My pins, and the materials cut from the pages I judged.</figcaption></figure><figure><img src="images/physiognomy-library.png" alt=""></figure></div></main>
 <div id="lb"><figure><img alt=""><figcaption></figcaption></figure></div><script>
