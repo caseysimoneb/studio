@@ -34,6 +34,18 @@ abbr:hover::after, abbr:focus::after { opacity:1; }
 .ref b { display:block; }
 .ref a { text-decoration:none; }
 .ref .note { display:block; color: var(--soft); }
+.made { max-width: 760px; }
+.made .mlab { font: 400 11px "Helvetica Neue", Helvetica, Arial, sans-serif; letter-spacing:.16em; text-transform:uppercase; color: var(--soft); margin-bottom: 8px; }
+.made .mitem { display:grid; grid-template-columns: 56px minmax(0,1fr) 300px; gap: 20px; align-items:start; border-top: 1px solid var(--ink); padding: 16px 0 18px; }
+.made .mnum { font: 400 13px "Helvetica Neue", Helvetica, Arial, sans-serif; padding-top: 6px; }
+.made .mtitle { display:block; font-size: 24px; line-height: 1.15; margin-bottom: 8px; }
+.made .mfacts { font: 400 13px/1.55 "Helvetica Neue", Helvetica, Arial, sans-serif; color: var(--soft); margin-top: 8px; }
+.made .mprev { display:block; position:relative; overflow:hidden; border:1px solid var(--ink); background:#161616; }
+.made .mprev iframe { position:absolute; left:0; top:0; border:0; transform-origin:0 0; pointer-events:none; }
+.made .mprev:hover { outline: 2px solid #2120DE; outline-offset: 2px; }
+.made .mprev.img img { display:block; width:100%; }
+.made .next { color: var(--soft); }
+@media (max-width: 900px) { .made .mitem { grid-template-columns: 44px minmax(0,1fr); } .made .mprev { grid-column: 2; } }
 .soontag { font: 400 11px "Helvetica Neue", Helvetica, Arial, sans-serif; color: var(--soft); margin-left: 8px; letter-spacing: .02em; }
 header nav.elsewhere { display:flex; gap: 16px; margin-left:auto; }
 header nav.elsewhere a { font-weight:400; text-decoration:none; }
@@ -175,7 +187,7 @@ figure img { cursor: zoom-in; }
 </style></head>
 <body>
 <header><a href="index.html">Studio OS</a><nav class="elsewhere"><a href="https://www.caseysimone.com/about" target="_blank" rel="noopener">About</a><a href="https://www.caseysimone.com" target="_blank" rel="noopener">Substack</a><a href="https://codesign.berkeley.edu/" target="_blank" rel="noopener">Co-Design Lab</a></nav><span class="draft"></span></header>
-<main><div class="text"><p><b>Constellation</b><br><span>Every thinker and term I’m drawing on, for one topic.</span></p><p>This project page is coming soon. For updates as it comes together, follow on <a href="https://www.caseysimone.com" target="_blank" rel="noopener">Substack</a>.</p><p>Made with it so far:</p><nav class="list"><a href="field-guide.html"><b>A Field Guide to Design Research</b>Approaches, methodologies, and methods in design research, with the thinkers behind them.</a></nav></div><div></div></main>
+<main><div class="text"><p><b>Constellation</b><br><span>Every thinker and term I’m drawing on, for one topic.</span></p><p>This project page is coming soon. For updates as it comes together, follow on <a href="https://www.caseysimone.com" target="_blank" rel="noopener">Substack</a>.</p></div><div><div class="made"><div class="mlab">Made with Constellation</div><div class="mitem"><div class="mnum">No. 1</div><div><a class="mtitle" href="field-guide.html">A Field Guide to Design Research</a><div class="mline">For design students choosing how to do research: the approaches, methodologies, and methods there are, how they connect to one another, and the original sources for each. 2026.</div><div class="mfacts">45 approaches · 38 methodologies · 109 methods · 437 sources, each checked against a library record</div></div><a class="mprev" href="field-guide.html" aria-label="A Field Guide to Design Research"><iframe src="field-guide.html?embed" tabindex="-1" loading="lazy" title="A Field Guide to Design Research, a preview"></iframe></a></div><div class="mitem next"><div class="mnum">No. 2</div><div>The next topic.</div><div></div></div></div><script>document.querySelectorAll('.mprev iframe').forEach(f=>{const W=1440,H=900,b=f.parentElement;f.width=W;f.height=H;const fit=()=>{const s=b.clientWidth/W;f.style.transform='scale('+s+')';b.style.height=Math.round(H*s)+'px'};new ResizeObserver(fit).observe(b);fit()})</script></div></main>
 <div id="lb"><figure><img alt=""><figcaption></figcaption></figure></div><script>
 document.querySelectorAll('details.row > .sec').forEach(sec => sec.addEventListener('click', e => {
   if (e.target.closest('a, button, input, textarea, pre, svg, iframe, img, li, [contenteditable], .w-hero, .w-clock')) return;
