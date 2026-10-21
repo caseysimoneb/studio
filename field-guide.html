@@ -212,6 +212,7 @@ body{overflow:hidden}
 .hvb{fill:var(--bg);stroke:var(--ink);stroke-width:.8}.hvt{font:600 15px Helvetica,Arial,sans-serif;fill:var(--ink)}.hvk{font:12px Helvetica,Arial,sans-serif;fill:var(--soft)}
 .snote{font:12px/1.45 Helvetica,Arial,sans-serif;color:var(--soft);margin:10px 0 0;max-width:330px}
 .find{position:relative;margin:18px 0 14px;max-width:330px}.find input{width:100%;font:15px/1.3 "Iowan Old Style",Georgia,serif;color:var(--ink);background:transparent;border:0;border-bottom:1px solid var(--ink);padding:6px 0;outline:none}.find input::placeholder{color:var(--soft)}.find .res{position:absolute;left:0;right:0;top:100%;z-index:20;background:var(--bg);border:1px solid var(--ink);max-height:320px;overflow:auto}.find .res button{display:block;width:100%;text-align:left;font:14px/1.3 Helvetica,Arial,sans-serif;color:var(--ink);background:none;border:0;padding:7px 10px;cursor:pointer}.find .res button:hover,.find .res button.cur{background:var(--sel,rgba(127,127,127,.15))}.find .res .k{color:var(--soft);font-size:12px;margin-left:6px}.find .res .why{display:block;color:var(--soft);font-size:12px}
+.about .sweeps{margin:0 0 14px;padding-left:1.4em}.about .sweeps li{margin:0 0 8px}
 </style>
 </head>
 <body>
@@ -380,6 +381,8 @@ function Stack(root,hint){
  let open=false, current=null, sel=null;
  // sentence, shorter
  const sentBox=rail.querySelector('.sent');let a='participatory-design',m='action-research',t='future-workshops';
+ // a new sentence on every visit: any approach, then one of its methodologies, then one of that methodology's methods (all joined in the literature), each picked evenly
+ {const R=xs=>xs[Math.floor(Math.random()*xs.length)];const as=D.order.approach.filter(x=>E[x].methodologies.some(y=>E[y].methods.length));if(as.length){a=R(as);m=R(E[a].methodologies.filter(y=>E[y].methods.length));t=R(E[m].methods)}}
  function sentence(){sentBox.innerHTML='';
   // joined (in the literature) first, then everything else: the map shows what has been done, not what is allowed
   const rest=(k,ids)=>D.order[k].filter(x=>!ids.includes(x));
@@ -473,11 +476,16 @@ function Stack(root,hint){
   b.append(el('div',{class:'fam'},'who made it'),
    P('Caseysimone Ballestas, a PhD candidate in Mechanical Engineering at UC Berkeley, in the Co-Design Lab. She teaches in Berkeley\'s Master of Design program, and made this for her students. <a href="https://codesign.berkeley.edu/" target="_blank" rel="noopener">Co-Design Lab</a> · <a href="https://www.caseysimone.com/about" target="_blank" rel="noopener">caseysimone.com</a> · <a href="https://studio.caseysimone.com/" target="_blank" rel="noopener">Studio OS</a>'),
    el('div',{class:'fam'},'how it was made'),
-   P('The guide is a constellation: one plain-text file, from which this site is built, using Constellation, a Studio OS tool. Its structure adapts Crotty\'s (1998) ladder of epistemology, theoretical perspective, methodology, and methods as approaches, methodologies, and methods.'),
-   P('<b>Sources.</b> Research agents (Claude, by Anthropic) compiled the guide in five sweeps: approaches; methodologies; methods; the methods taught in UC Berkeley\'s Master of Design program; and the source of each lens. Every entry cites at least one published work. Every cited work was matched field by field (authors, year, title, venue) to a primary record: a DOI registry, the publisher, or a library catalog.'),
-   P(`<b>Verification.</b> A second pass checked all 434 works against the UC Berkeley library and, where the library had no record, against publishers, standards bodies, and national catalogs. A citation in another work\'s reference list did not count as evidence. Result: 367 matched as cited; 65 were corrected to their record (subtitles, editors, years, author lists); 2 could not be traced to any primary record and were removed. A work is marked ● when it matched; ${D.counts.verify===1?'one work is':D.counts.verify+' works are'} marked ○, where the volume is confirmed but a chapter's details are not, and is not counted as verified.`),
-   P(`<b>Passages.</b> For each work, an agent located the passage that states what the work is cited for, by chapter, section, or page, and read the full text of 31 works where the abstract and contents were not enough. Where a work is openly licensed, the passage is quoted verbatim from the publisher\'s full text, with its location and licence (${W.filter(w=>w.quotes).length} works so far). A line in quotation marks is a quotation; a line without them summarizes the located passage.`),
-   P('The judgment calls were Caseysimone\'s: what counts as an approach, the families and lenses, and what was left out.'),
+   P('This guide was made with <a href="https://studio.caseysimone.com/constellation.html">Constellation</a>, a tool in Caseysimone\'s Studio OS that turns a plain-text file of how research connects into a map she can navigate and keep thinking with. <a href="https://studio.caseysimone.com/constellation.html">See the tool →</a>'),
+   P('For this guide, research agents (Claude Opus 5.5, by Anthropic) compiled the file in five sweeps:'),
+   el('ol',{class:'sweeps'},...[
+    '<b>A first pass</b> over the approaches, methodologies, and methods of design research, one agent for each (two for the approaches).',
+    '<b>A wider pass:</b> approaches from social and care practice, and from systems, futures, and material practice; methodologies, including engineering design; and an audit of the methods.',
+    '<b>The methods taught in UC Berkeley\'s Master of Design program</b>, from the course\'s own frames.',
+    '<b>The source of each lens</b> you can group by (phase, stage, mode, kind).',
+    `<b>A check of every cited work</b> against the UC Berkeley library, and beyond it where the library had no record: 367 matched as cited, 65 were corrected to their record, and 2 could not be traced and were removed.`
+   ].map(h=>el('li',{html:h}))),
+   P(`Where a work is openly licensed (Creative Commons), the guide quotes its own words, with where they are and the licence (${W.filter(w=>w.quotes).length} works). For every other work, it says where in the work to look.`),
    el('div',{class:'fam'},'how to cite it'),
    P('It isn\'t peer reviewed, so cite it as a versioned online reference, and cite the original works for any claim they make:'),
    P('Ballestas, C. (2026). <i>A field guide to design research</i> (Version 1.0) [Online reference]. Studio OS. https://studio.caseysimone.com/field-guide.html'));return b}
@@ -513,7 +521,7 @@ function Stack(root,hint){
    setTimeout(show,wait)}
   function end(){remember();clearInterval(tick);ring&&ring.remove();card&&card.remove();ring=card=null;removeEventListener('resize',place);removeEventListener('scroll',place,true);removeEventListener('keydown',key)}
   function key(e){if(e.key==='Escape')end();else if(e.key==='ArrowRight')k<STEPS.length-1?go(k+1):end();else if(e.key==='ArrowLeft'&&k)go(k-1)}
-  function start(){if(ring)return;k=0;if(atlas.classList.contains('open')){slide(false);mark(-1);history.replaceState({},'','#')}ring=el('div',{class:'tour-ring'});tick=setInterval(()=>ring&&place(),250);card=el('div',{class:'tour-card',role:'dialog','aria-label':'How to use this guide'});document.body.append(ring,card);addEventListener('resize',place);addEventListener('scroll',place,true);addEventListener('keydown',key);setTimeout(show,300)}
+  function start(){if(ring)return;k=0;a='participatory-design';m='action-research';t='future-workshops';sel=null;sentence();draw();if(atlas.classList.contains('open')){slide(false);mark(-1);history.replaceState({},'','#')}ring=el('div',{class:'tour-ring'});tick=setInterval(()=>ring&&place(),250);card=el('div',{class:'tour-card',role:'dialog','aria-label':'How to use this guide'});document.body.append(ring,card);addEventListener('resize',place);addEventListener('scroll',place,true);addEventListener('keydown',key);setTimeout(show,300)}
   howto.addEventListener('click',start);
   if(!location.hash.slice(1)&&!seen()&&!/[?&]embed\b/.test(location.search)&&window.top===window.self)setTimeout(start,900)}
  // a shared link opens where it points: an entry (#participatory-design) or a part (#methods, #about)
