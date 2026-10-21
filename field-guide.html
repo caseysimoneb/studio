@@ -477,13 +477,14 @@ function Stack(root,hint){
    P('Caseysimone Ballestas, a PhD candidate in Mechanical Engineering at UC Berkeley, in the Co-Design Lab. She teaches in Berkeley\'s Master of Design program, and made this for her students. <a href="https://codesign.berkeley.edu/" target="_blank" rel="noopener">Co-Design Lab</a> · <a href="https://www.caseysimone.com/about" target="_blank" rel="noopener">caseysimone.com</a> · <a href="https://studio.caseysimone.com/" target="_blank" rel="noopener">Studio OS</a>'),
    el('div',{class:'fam'},'how it was made'),
    P('This guide was made with <a href="https://studio.caseysimone.com/constellation.html">Constellation</a>, a tool in Caseysimone\'s Studio OS that turns a plain-text file of how research connects into a map she can navigate and keep thinking with. <a href="https://studio.caseysimone.com/constellation.html">See the tool →</a>'),
-   P('For this guide, research agents (Claude Opus 5.5, by Anthropic) compiled the file in five sweeps:'),
+   P('For this guide, research agents (Claude Opus 5.5, by Anthropic) compiled the file in six sweeps:'),
    el('ol',{class:'sweeps'},...[
     '<b>A first pass</b> over the approaches, methodologies, and methods of design research, one agent for each (two for the approaches).',
     '<b>A wider pass:</b> approaches from social and care practice, and from systems, futures, and material practice; methodologies, including engineering design; and an audit of the methods.',
     '<b>The methods taught in UC Berkeley\'s Master of Design program</b>, from the course\'s own frames.',
     '<b>The source of each lens</b> you can group by (phase, stage, mode, kind).',
-    `<b>A check of every cited work</b> against the UC Berkeley library, and beyond it where the library had no record: 367 matched as cited, 65 were corrected to their record, and 2 could not be traced and were removed.`
+    `<b>A check of every cited work</b> against the UC Berkeley library, and beyond it where the library had no record: 367 matched as cited, 65 were corrected to their record, and 2 could not be traced and were removed.`,
+    `<b>A licence check of every cited work</b>, quoting the ${W.filter(w=>w.quotes).length} that are openly licensed.`
    ].map(h=>el('li',{html:h}))),
    P(`Where a work is openly licensed (Creative Commons), the guide quotes its own words, with where they are and the licence (${W.filter(w=>w.quotes).length} works). For every other work, it says where in the work to look.`),
    el('div',{class:'fam'},'how to cite it'),
