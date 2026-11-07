@@ -18,17 +18,18 @@
   css.textContent = [
     '.ss-btn{display:inline-block;background:' + GREEN + ';color:' + ON_GREEN + '!important;font:600 13px/1 ' + SANS + ';padding:7px 12px;border-radius:8px;text-decoration:none!important;border:0;cursor:pointer}',
     '.ss-btn:hover{background:#a2f053}',
-    // The header button's word sits on the same line as About · Substack · Co-Design Lab (their text
-    // baseline), with the green spread evenly above and below; negative margins keep the header's height.
-    '.ss-nav{margin:-7px 0 -7px 14px;vertical-align:baseline}',
-    'header nav.elsewhere{align-items:baseline}',
+    // The header button sets its word in the header's own face, size and line height, so it sits exactly
+    // where About · Substack · Co-Design Lab sit; the green padding is cancelled by equal negative margins,
+    // so it spreads evenly above and below and moves nothing. (Round 1 used the system font here, and its
+    // different proportions put the word 3 px off in Chrome on a Mac.)
+    '.ss-nav{font:inherit;font-weight:600;line-height:inherit;padding:6px 11px;margin:-6px 0 -6px 14px;vertical-align:baseline}',
     'header nav.elsewhere .ss-nav{margin-left:0}',
-    '.sitebar .ss-nav{padding:3px 8px;margin-top:-3px;margin-bottom:-3px;font-size:12px;line-height:14px}',
+    '.sitebar .ss-nav{padding:3px 8px;margin-top:-3px;margin-bottom:-3px}',
     '.ss-pill{position:fixed;right:20px;bottom:20px;z-index:2147483000;display:flex;align-items:center;gap:2px;background:' + GREEN + ';border-radius:999px;box-shadow:0 4px 18px rgba(0,0,0,.16);padding:4px;opacity:0;transform:translateY(12px);transition:opacity .4s,transform .4s}',
     '.ss-pill.on{opacity:1;transform:none}',
     '.ss-pill .ss-btn{padding:9px 6px 9px 14px;font-size:14px;background:none}',
     '.ss-x{background:none;border:0;color:' + ON_GREEN + ';font-size:18px;line-height:1;cursor:pointer;padding:4px 10px 4px 4px}',
-    '@media (max-width:600px){.ss-pill{right:12px;bottom:12px}.ss-nav{padding:5px 8px;margin-top:-5px;margin-bottom:-5px;font-size:12px}.sitebar .ss-nav{margin-left:10px}.ss-narrow{display:none!important}.sitebar nav{white-space:nowrap;flex:none}.sitebar .crumbs{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:1 1 auto}}'
+    '@media (max-width:600px){.ss-pill{right:12px;bottom:12px}.ss-nav{padding:5px 8px;margin-top:-5px;margin-bottom:-5px}.sitebar .ss-nav{padding:3px 7px;margin:-3px 0 -3px 10px}.ss-narrow{display:none!important}.sitebar nav{white-space:nowrap;flex:none}.sitebar .crumbs{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:1 1 auto}}'
   ].join('\n');
   document.head.appendChild(css);
 
